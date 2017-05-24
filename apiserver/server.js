@@ -54,7 +54,7 @@ app.use("/api/items", itemsRoutes(knex));
 app.use("/api/plans", plansRoutes(knex));
 app.use("/api/categories", categoriesRoutes(knex));
 
-//app.use('/auth', authRoutes(knex));
+app.use('/auth', authRoutes(knex));
 //app.use('/api', apiRoutes);
 
 // Home page

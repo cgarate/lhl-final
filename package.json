@@ -2,6 +2,7 @@
   "name": "cra-boilerplate",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "material-ui": "^0.18.1",
