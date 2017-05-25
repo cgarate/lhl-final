@@ -21,7 +21,10 @@ class NavBar extends Component {
             <li>profile
             </li>
             <li>
-              <Link to="/datePlans">Date Plans</Link>
+              <Link to="/myDatePlans">My Date Plans</Link>
+            </li>
+            <li>
+              <Link to="/datePlans">All Date Plans</Link>
             </li>
             <li>create plan
             </li>

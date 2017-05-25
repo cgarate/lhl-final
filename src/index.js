@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Base from './components/Base.jsx';
 import NavBar from './components/navbar.js';
 import HomePage from './containers/HomePage.jsx';
+import MyDatePlan from './components/myDatePlan.js';
 import DatePlan from './components/datePlan.js';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
@@ -30,6 +31,7 @@ ReactDom.render((
           <Route path='/signup' component={SignUpPage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/datePlans' component={DatePlan} />
+          <Route path='/myDatePlans' component={MyDatePlan} />
         </div>
       </Base>
     </Router>

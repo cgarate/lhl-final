@@ -22,7 +22,7 @@ import SingleDatePlan from './singleDatePlan.js';
 
 
 
-class DatePlan extends Component {
+class MyDatePlan extends Component {
 
   constructor(props) {
     super(props)
@@ -256,4 +256,4 @@ class DatePlan extends Component {
   }
 }
 
-export default DatePlan;
+export default MyDatePlan;

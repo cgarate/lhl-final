@@ -29,13 +29,17 @@ class SingleDatePlan extends Component {
   render() {
 
     let outputActivities;
+    console.log("here1");
     if (this.props.aDatePlan != 0) {
+      console.log("here2");
+      console.log(this.props.aDatePlan);
       let theTableRows = [];
-      if(this.props.aDatePlan.planItems) {
-        theTableRows  = this.props.aDatePlan.planItems.map( item => {
-        console.log("plan: ", this.props.aDatePlan.planItems.length);
-          return (<TableRow key={item.itemDetails.id}>
-            <TableRowColumn className="tableCellStyle">{item.itemDetails.name}</TableRowColumn>
+      if(this.props.aDatePlan) {
+        console.log("here3");
+        theTableRows  = this.props.aDatePlan.map( item => {
+        console.log("plan: ", this.props.aDatePlan.length);
+          return (<TableRow key={item.id}>
+            <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
           </TableRow>)
         });
