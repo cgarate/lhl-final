@@ -1,5 +1,6 @@
 exports.seed = function(knex, Promise) {
   const faker = require('faker');
+  return knex('users').del();
   return knex('plans').del()
     .then(function () {
       return Promise.all([
