@@ -20,7 +20,7 @@ const usersRoutes = require("./routes/users");
 const itemsRoutes = require("./routes/items");
 const plansRoutes = require("./routes/plans");
 const categoriesRoutes = require("./routes/categories");
-//const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 //const apiRoutes = require('./routes/api');
 
 app.set('port', (process.env.PORT || 8080));

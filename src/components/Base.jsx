@@ -7,7 +7,7 @@ const Base = ( {children} ) => (
   <div>
     <div className="top-bar">
       <div className="top-bar-left">
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/home">Home</NavLink>
       </div>
 
       {Auth.isUserAuthenticated() ? (

@@ -1,0 +1,26 @@
+.navbar {
+  position: relative;
+  width: 100%;
+  min-height: 60px;
+}
+
+.siteLogo {
+  /*float: left;*/
+  font-size: 4em;
+  color: #309eba;
+  margin: 10px;
+  padding: 10px;
+  display: inline;
+}
+
+.navbar ul {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: inline;
+}
+
+.navbar li {
+  margin-left: 10px;
+  display: inline;
+}
