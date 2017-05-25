@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const ENV         = process.env.ENV || "development";
 const express     = require("express");
+const cors        = require('cors')
 const bodyParser  = require("body-parser");
 const methodOverride = require('method-override')
 //const sass        = require("node-sass-middleware");
@@ -13,7 +14,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-const partials = require('express-partials');
+const partials    = require('express-partials');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -30,6 +31,8 @@ app.use(partials());
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+
+app.use(cors());
 
 app.use(methodOverride('_method'))
 

@@ -32,6 +32,23 @@ class HomePage extends Component {
     };
   }
 
+  componentDidMount() {    
+  var that = this;
+  var url = 'http://localhost:8080/api/users/'
+
+  fetch(url)
+  .then(function(response) {
+    if (response.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return response.json();
+  })
+  .then(function(data) {
+    console.log(data);
+    // that.setState({ person: data.person });
+  });
+}
+
   render() {
     return (
       <div className="mainSection">
