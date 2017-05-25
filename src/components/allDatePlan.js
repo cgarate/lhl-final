@@ -31,55 +31,7 @@ class DatePlan extends Component {
       showCheckBoxes: false,
       value: 0,
       aSingleDatePlan: [],
-      datePlans: [
-        {
-          id: 1,
-          name: "The Park",
-          description: "A beautiful walk in the park and a picnic.",
-          planItems: [
-            {
-              description: "A walk through the park",
-              itemDetails: {
-                id: 1,
-                name: "Freedom Park",
-                street: "123 Park St",
-                phone: "",
-                hours: "8:00am to 20:00pm",
-                category: "Outdoors"
-              }
-            },
-            {
-              description: "A picnic under a tree",
-              itemDetails: {
-                id: 2,
-                name: "Freedom Park",
-                street: "123 Park St",
-                phone: "",
-                hours: "8:00am to 20:00pm",
-                category: "Food"
-              }
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: "The Bar",
-          description: "Time for a drink!",
-          planItems: [
-            {
-              description: "Heavy Drinking",
-              itemDetails: {
-                id: 3,
-                name: "Dive Bar",
-                street: "124 Bar St",
-                phone: "",
-                hours: "8:00am to 2:00am",
-                category: "Bar"
-              }
-            }
-          ]
-        }
-      ]
+      datePlans: []
     }
     this.getAllDatePlanItemsReact = this.getAllDatePlanItemsReact.bind(this);
   }
@@ -89,16 +41,6 @@ class DatePlan extends Component {
   handleChange = (event, index, value) => {
     this.setState({value});
     // update date plan table with selections from category choice
-  }
-
-  loadDatePlanActivities = (aPlan) => {
-
-    for (var i in this.state.datePlans) {
-      console.log("now here");
-      if (this.state.datePlans[i].id === aPlan) {
-        this.setState({aSingleDatePlan: this.state.datePlans[i]});
-      }
-    }
   }
 
   // loadDatePlanCategory = (category) => {
@@ -112,9 +54,19 @@ class DatePlan extends Component {
   //   this.setState({datePlans: selectedCategory});
   // }
 
+  loadDatePlanActivities = (aPlan) => {
+
+    for (var i in this.state.datePlans) {
+      console.log("now here");
+      if (this.state.datePlans[i].id === aPlan) {
+        this.setState({aSingleDatePlan: this.state.datePlans[i]});
+      }
+    }
+  }
+
   getAllDatePlansReact() {
-    var that = this;
-    var url = 'http://localhost:8080/api/plans/'
+    let that = this;
+    let url = 'http://localhost:8080/api/plans/'
 
     fetch(url)
     .then(function(response) {
@@ -131,8 +83,8 @@ class DatePlan extends Component {
 
   getAllDatePlanItemsReact(planId) {
     console.log("planId: ", planId);
-    var that = this;
-    var url = 'http://localhost:8080/api/plans/plan_item/'
+    let that = this;
+    let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
     .then((response) => {
@@ -186,8 +138,8 @@ class DatePlan extends Component {
             adjustForCheckbox={this.state.showCheckBoxes}
           >
             <TableRow>
-              <TableHeaderColumn className="tableCellStyle">Name</TableHeaderColumn>
-              <TableHeaderColumn className="tableCellStyle">Status</TableHeaderColumn>
+              <TableHeaderColumn className="tableCellStyle">Plan Name</TableHeaderColumn>
+              <TableHeaderColumn className="tableCellStyle">Description</TableHeaderColumn>
               <TableHeaderColumn className="tableCellStyle"></TableHeaderColumn>
             </TableRow>
           </TableHeader>
@@ -229,12 +181,12 @@ class DatePlan extends Component {
     
     return (
       <div className="datePlanMain">
-        <div className="pageTitle">Date Plans</div>
+        <div className="pageTitle">All Date Plans</div>
         <div className="datePlanMainSection">
           {/*<div className="datePlanDropDown">
             {dropDownPlanList}
           </div>*/}
-          <div className="sectionTitle">Date Plans</div>
+          <div className="sectionTitle">All Date Plans</div>
           <div className="datePlanList">
            {outputDatePlans}
           </div>

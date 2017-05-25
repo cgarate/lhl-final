@@ -54,8 +54,8 @@ class SingleDatePlan extends Component {
             adjustForCheckbox={this.state.showCheckBoxes}
           >
             <TableRow>
-              <TableHeaderColumn className="tableCellStyle">Name</TableHeaderColumn>
-              <TableHeaderColumn className="tableCellStyle">Status</TableHeaderColumn>
+              <TableHeaderColumn className="tableCellStyle">Location</TableHeaderColumn>
+              <TableHeaderColumn className="tableCellStyle">Description</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
