@@ -18,6 +18,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/datePlan.css';
+import '../styles/mapStyles.css';
 import SingleDatePlan from './singleDatePlan.js';
 
 
@@ -182,24 +183,18 @@ class DatePlan extends Component {
     return (
       <div className="datePlanMain">
         <div className="pageTitle">All Date Plans</div>
-        <div className="datePlanMainSection">
-          {/*<div className="datePlanDropDown">
-            {dropDownPlanList}
-          </div>*/}
-          <div className="sectionTitle">All Date Plans</div>
-          <div className="datePlanList">
-           {outputDatePlans}
-          </div>
-        </div>
-        <div className="datePlanActivitiesSection">
-          <div className="sectionTitle">Date Plan Activities</div>
-          <div className="datePlanList">
-            <SingleDatePlan aDatePlan={this.state.aSingleDatePlan}/>
-          </div>
-        </div>
-        <div className="datePlanMapSection">
-          <div className="sectionTitle">Map</div>
-          <div className="datePlanMap">
+        <div>
+          <div id="map"></div>
+          <div className="options-box">
+            <div>
+              <input id="zoom-to-area-text" type="text" placeholder="Enter Where To Go!"/>
+              <input id="zoom-to-area" type="button" value="Zoom"/>
+            </div>
+            <div>
+              <span className="text">Search for nearby places</span>
+              <input id="places-search" type="text" placeholder="Ex. Bars in the TO"/>
+              <input id="go-places" type="button" value="Go"/>
+            </div>
           </div>
         </div>
         

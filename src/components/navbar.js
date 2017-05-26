@@ -18,7 +18,8 @@ class NavBar extends Component {
             <li>
               <Link to="/home">Home</Link>
             </li>
-            <li>profile
+            <li>
+              <Link to="/profile">My Profile</Link>
             </li>
             <li>
               <Link to="/myDatePlans">My Date Plans</Link>
