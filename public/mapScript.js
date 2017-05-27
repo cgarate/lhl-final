@@ -1,14 +1,14 @@
-             //Displaying Google Maps Window
-              var map, infoWindow;
+      //Displaying Google Maps Window
+      var map, infoWindow;
 
-              //created placemarkers array to use in multiple functions to have control over the number of places that show on the map.
-              var placeMarkers = [];
-              //selected places from map can be stored into this empty array.
-              var dateplans = [];
+      //created placemarkers array to use in multiple functions to have control over the number of places that show on the map.
+      var placeMarkers = [];
+      //selected places from map can be stored into this empty array.
+      var dateplans = [];
 
-              var newPlace = {};
-              
-              function initMap() {
+      var newPlace = {};
+      
+      function initMap() {
         var styles = [
         {
           featureType: 'water',
@@ -112,6 +112,7 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
       }
+
 
             ///////////   Functions   /////////////
 
@@ -275,8 +276,8 @@
 
           window.onload = function () {
             //listen for the event fired when the user clicks "add me" button from the map and will push into the date plans array.
-            var butt = document.getElementById('add-location');
-            if (butt) {
+            var addLoc = document.getElementById('add-location');
+            if (addLoc) {
               console.log(place)
               document.getElementById('add-location').addEventListener('click', function() {
                 addLocationToPlans(Place);
@@ -287,7 +288,19 @@
 
       //function to push a selected place into date plans array.
       function addLocationToPlans(event) {
-        console.log("test: ", newPlace)
+        console.log("testjkjlkjh: ", newPlace)
+        let that = this;
+        let url = 'http://localhost:8080/api/plans/'
 
-        // dateplans.push(locationName)
+        fetch(url)
+        .then(function(response) {
+          if (response.status >= 400) {
+            throw new Error("Bad response from server");
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          console.log(data);
+        });
+
       }

@@ -104,16 +104,31 @@ class DatePlan extends Component {
   
     this.getAllDatePlansReact();
 
+    //get the number of `<script>` elements that have the correct `src` attribute
+    var len = document.getElementsByTagName('script')
+    console.log(len);
+    // .filter(function () {
+    //   console.log("herehere1");
+    //     return (len.attr('src') === "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap");
+    // }).length;
 
-    const script1 = document.createElement("script");
-    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap"
-    script1.async = true;
-    document.body.appendChild(script1);
+    //if there are no scripts that match, the load it
+    if (len === 0) {
+      console.log("herehere1");
+        // $.getScript('<external JS>');
+      const script1 = document.createElement("script");
+      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
+      script1.async = true;
+      document.body.appendChild(script1);
+    }
 
-    const script2 = document.createElement("script");
-    script2.src = "./mapScript.js"
-    script2.async = true;
-    document.body.appendChild(script2);
+
+    
+
+    // const script2 = document.createElement("script");
+    // script2.src = "./mapScript.js"
+    // script2.async = true;
+    // document.body.appendChild(script2);
   
 }
 
@@ -126,7 +141,7 @@ class DatePlan extends Component {
     }
 
     let outputDatePlans;
-    if (this.state.datePlans != 0) {
+    if (this.state.datePlans !== 0) {
       let theTableRows = [];
       if(this.state.datePlans) {
         theTableRows  = this.state.datePlans.map( item => {
