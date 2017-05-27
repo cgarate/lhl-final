@@ -96,7 +96,6 @@ class DatePlan extends Component {
     })
     .then((data) => {
       console.log(data);
-      // that.setState({ datePlans: data });
       this.setState({aSingleDatePlan: data});
     });
   }
@@ -104,6 +103,17 @@ class DatePlan extends Component {
   componentDidMount() {    
   
     this.getAllDatePlansReact();
+
+
+    const script1 = document.createElement("script");
+    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap"
+    script1.async = true;
+    document.body.appendChild(script1);
+
+    const script2 = document.createElement("script");
+    script2.src = "./mapScript.js"
+    script2.async = true;
+    document.body.appendChild(script2);
   
 }
 
@@ -183,21 +193,40 @@ class DatePlan extends Component {
     return (
       <div className="datePlanMain">
         <div className="pageTitle">All Date Plans</div>
-        <div>
-          <div id="map"></div>
-          <div className="options-box">
+        <div className="datePlanMainSection">
+          {/*<div className="datePlanDropDown">
+            {dropDownPlanList}
+          </div>*/}
+          <div className="sectionTitle">All Date Plans</div>
+          <div className="datePlanList">
+           {outputDatePlans}
+          </div>
+        </div>
+        <div className="datePlanActivitiesSection">
+          <div className="sectionTitle">Date Plan Activities</div>
+          <div className="datePlanList">
+            <SingleDatePlan aDatePlan={this.state.aSingleDatePlan}/>
+          </div>
+        </div>
+        <div className="datePlanMapSection">
+          <div className="sectionTitle">Map</div>
+          <div className="datePlanMap">
             <div>
-              <input id="zoom-to-area-text" type="text" placeholder="Enter Where To Go!"/>
-              <input id="zoom-to-area" type="button" value="Zoom"/>
-            </div>
-            <div>
-              <span className="text">Search for nearby places</span>
-              <input id="places-search" type="text" placeholder="Ex. Bars in the TO"/>
-              <input id="go-places" type="button" value="Go"/>
+              <div id="map"></div>
+              <div className="options-box">
+                <div>
+                  <input id="zoom-to-area-text" type="text" placeholder="Enter Where To Go!"/>
+                  <input id="zoom-to-area" type="button" value="Zoom"/>
+                </div>
+                <div>
+                  <span className="text">Search for nearby places</span>
+                  <input id="places-search" type="text" placeholder="Ex. Bars in the TO"/>
+                  <input id="go-places" type="button" value="Go"/>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        
       </div>
     );
   }

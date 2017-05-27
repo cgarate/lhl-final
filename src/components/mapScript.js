@@ -113,6 +113,8 @@
         }
       }
 
+      initMap();
+      
             ///////////   Functions   /////////////
 
       //This function takes the input value in the find nearby area text input locates it, and then zooms into that area. This is so that the user can see all POI, then decide to focus on one area of the map.
@@ -275,8 +277,8 @@
 
           window.onload = function () {
             //listen for the event fired when the user clicks "add me" button from the map and will push into the date plans array.
-            var butt = document.getElementById('add-location');
-            if (butt) {
+            var addLoc = document.getElementById('add-location');
+            if (addLoc) {
               console.log(place)
               document.getElementById('add-location').addEventListener('click', function() {
                 addLocationToPlans(Place);

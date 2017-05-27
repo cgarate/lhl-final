@@ -1,56 +1,14 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+             //Displaying Google Maps Window
+              var map, infoWindow;
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+              //created placemarkers array to use in multiple functions to have control over the number of places that show on the map.
+              var placeMarkers = [];
+              //selected places from map can be stored into this empty array.
+              var dateplans = [];
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <!--<script src="./jquery-3.2.1.js"></script>-->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap" async defer></script>-->
-    <!--<script src="./mapScript.js"></script>-->
-    <!--<script>
-      //Displaying Google Maps Window
-      var map, infoWindow;
-
-      //created placemarkers array to use in multiple functions to have control over the number of places that show on the map.
-      var placeMarkers = [];
-      //selected places from map can be stored into this empty array.
-      var dateplans = [];
-
-      var newPlace = {};
-      
-      function initMap() {
+              var newPlace = {};
+              
+              function initMap() {
         var styles = [
         {
           featureType: 'water',
@@ -98,8 +56,7 @@
           ]
         }
           ];
-            // var latlng = new google.maps.LatLng(39.305, -76.617);
-            var uluru = new google.maps.LatLng(43.6532, -79.3832);
+            var uluru = {lat: 43.6532, lng: -79.3832};
             map = new google.maps.Map(document.getElementById('map'), {
               styles: styles,
               zoom: 12,
@@ -334,7 +291,3 @@
 
         // dateplans.push(locationName)
       }
-
-    </script>-->
-  </body>
-</html>
