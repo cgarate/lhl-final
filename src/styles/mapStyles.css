@@ -1,0 +1,39 @@
+.container {
+  height: 100%;
+  position: relative;
+}
+
+.options-box {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  margin: 30px 0 50px 0;
+  height: 30%;
+  /*list-height: 35px;*/
+  padding: 10px 10px 30px 10px;
+  text-align: left;
+  /*width: 100%;*/
+}
+
+#map {
+  bottom: 0px;
+  height: 500px;
+  width: 100%;
+  position: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 10px;
+  padding: 10px;
+}
+
+#zoom-to-area-text {
+  position: relative;
+  width: 250px;
+  margin: 20px;
+}
+
+#zoom-to-area {
+  width: 24%;
+}

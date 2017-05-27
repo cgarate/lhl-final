@@ -22,14 +22,19 @@ module.exports = (knex) => {
   //Get Items for a Plan
   router.get("/plan_item/:id", (req, res) => {
     knex
-      .select('item_id')
+      .select('item_id', 'plan_id', 'description')
       .where('plan_id', "=", req.params.id)
       .from("plans_items")
       .then( (results) => {
         return _.pluck(results, 'item_id')
       })
       .then( (items) => {
-        return knex.select('*').from('items').whereIn('id', items);
+        return knex
+        .select(["items.*", "plans_items.description"])
+        .from("items")
+        .leftJoin("plans_items", "items.id", "=", "plans_items.item_id")
+        .whereIn("items.id", items)
+        .andWhere("plans_items.plan_id", req.params.id);
       })
       .then( (results) => {
         res.json(results)

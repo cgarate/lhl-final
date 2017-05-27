@@ -1,0 +1,81 @@
+.datePlanMain {
+  position: relative;
+  /*width: 100%;*/
+  padding: 20px;
+}
+
+.pageTitle {
+  margin: 30px 0 0 30px;
+  font-size: 3em;
+}
+
+.datePlanMainSection {
+  position: relative;
+  /*top: 150px;*/
+  margin: 60px auto;
+
+  padding: 20px;
+  width: 80%;
+  min-width: 300px;
+  max-width: 1000px;
+  min-height: 300px;
+  background-color: lightblue;
+}
+
+.datePlanDropDown {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+}
+
+.datePlanList {
+  width: 100%;
+  height: 300px;
+  margin: 20px 0 0 0;
+  background-color: lightgoldenrodyellow;
+  overflow: scroll;
+}
+
+.tableCellStyle {
+  vertical-align: middle;
+}
+
+.tableCellButtonStyle {
+  vertical-align: middle;
+  width: 100px;
+}
+
+.datePlanMapSection {
+  position: relative;
+  margin: 60px auto;
+
+  padding: 20px;
+  width: 80%;
+  min-width: 300px;
+  max-width: 1000px;
+  min-height: 300px;
+  background-color: lightblue;
+}
+
+.datePlanMap {
+width: 100%;
+  height: 500px;
+  margin: 20px 0 0 0;
+  background-color: lightgoldenrodyellow;
+}
+
+.datePlanActivitiesSection {
+  position: relative;
+  margin: 60px auto;
+
+  padding: 20px;
+  width: 80%;
+  min-width: 300px;
+  max-width: 1000px;
+  min-height: 300px;
+  background-color: lightblue;
+}
+
+.selectPlan {
+
+}
