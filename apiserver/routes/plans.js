@@ -29,7 +29,12 @@ module.exports = (knex) => {
         return _.pluck(results, 'item_id')
       })
       .then( (items) => {
-        return knex.select('*').from('items').whereIn('id', items);
+        return knex
+        .select(["items.*", "plans_items.description"])
+        .from("items")
+        .leftJoin("plans_items", "items.id", "=", "plans_items.item_id")
+        .whereIn('items.id', items)
+        andWhere("plans_items.plan_id", req.params.id);
       })
       .then( (results) => {
         res.json(results)

@@ -10,19 +10,9 @@ class LoginPage extends React.Component {
    */
   constructor(props, context) {
     super(props, context);
-
-    const storedMessage = localStorage.getItem('successMessage');
-    let successMessage = '';
-
-    if (storedMessage) {
-      successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
-    }
-
     // set the initial component state
     this.state = {
       errors: {},
-      successMessage,
       user: {
         email: '',
         password: ''
@@ -49,13 +39,12 @@ class LoginPage extends React.Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
+    xhr.open('post', 'http://localhost:8080/api/auth/login');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.withCredentials = true;
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        // success
-
         // change the component-container state
         this.setState({
           errors: {}
@@ -64,12 +53,11 @@ class LoginPage extends React.Component {
         // save the token
         Auth.authenticateUser(xhr.response.token);
 
-
         // change the current URL to /
-        this.context.router.replace('/');
-      } else {
-        // failure
+        this.context.router.history.replace('/');
 
+      } else {
+        console.log(xhr.response);
         // change the component state
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
@@ -82,11 +70,6 @@ class LoginPage extends React.Component {
     xhr.send(formData);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -106,7 +89,6 @@ class LoginPage extends React.Component {
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
-        successMessage={this.state.successMessage}
         user={this.state.user}
       />
     );

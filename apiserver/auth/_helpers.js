@@ -1,21 +1,33 @@
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 require('dotenv').config();
 const ENV         = process.env.ENV || "development";
 const knexConfig  = require("../knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 
+// Function to compare password using Bcrypt.
+const comparePass = ( userPassword, databasePassword) => {
+    return new Promise( (resolve, reject) => {
+      bcrypt.compare(userPassword, databasePassword, function (err, result) {
+        if (err)
+          return reject(err)
+        if (!result)
+          return reject('Authentication Error')
 
-function comparePass(userPassword, databasePassword) {
-  console.log("Userpassword: ", userPassword);
-  console.log("databasepassword: ", databasePassword);
-  return bcrypt.compareSync(userPassword, databasePassword);
-}
+        resolve(result)
+      })
+    })
+};
 
+// Used for sign up process.
 function createUser(req, res) {
-  return handleErrors(req)
+  // check form values are correct.
+  return handleErrorsSignup(req)
   .then(() => {
+    // create the hash out of the password submitted by the user.
     const salt = bcrypt.genSaltSync();
     const hash = bcrypt.hashSync(req.body.password, salt);
+    //Insert new user into the DB.
     return knex('users')
     .insert({
       first_name: req.body.first_name,
@@ -26,36 +38,97 @@ function createUser(req, res) {
     })
     .returning('*');
   })
+  // if form values were not valid send back errors and message to the client.
   .catch((err) => {
-    res.status(400).json({status: err.message});
+    res.status(400).json({
+                          message: "Check form for errors.",
+                          errors: err.errors
+                        });
   });
 }
 
 function loginRequired(req, res, next) {
-  if (!req.user) return res.status(401).json({status: 'Please log in'});
+  if (!req.user) return res.status(401).json({message: 'Please log in'});
   return next();
 }
 
 function loginRedirect(req, res, next) {
   if (req.user) return res.status(401).json(
-    {status: 'You are already logged in'});
+    {message: 'You are already logged in'});
   return next();
 }
 
-function handleErrors(req) {
+// Checks if objects are empty.
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+// Validate signup form values.
+function handleErrorsSignup(req) {
   return new Promise((resolve, reject) => {
-    if (req.body.username.length < 6) {
-      reject({
-        message: 'Username must be longer than 6 characters'
-      });
+    let errors = {};
+    // Check if the email is not already in the database
+    knex('users').first('email').where('email', "=", req.body.email)
+    // if email exists reject.
+    .then( (email) => {
+      if (email) {
+          errors.email =  'Email already exists.'
+      }
+
+      if (req.body.username.length < 1) {
+        errors.username = 'Username cannot be empty.'
+      }
+
+      if (typeof req.body.email !== 'string' || !validator.isEmail(req.body.email)) {
+        errors.email = 'Please enter a valid email.'
+      }
+
+      if (req.body.password.length < 8) {
+        errors.password = 'Password must be at least 8 characters long.'
+      }
+
+      if (req.body.first_name.length < 1) {
+        errors.first_name = 'First Name cannot be empty.'
+      }
+
+      if (req.body.last_name.length < 1) {
+        errors.last_name = 'Last Name cannot be empty'
+      }
+
+      if(isEmpty(errors)) {
+          resolve(errors);
+      } else {
+          reject({errors})
+      }
+
+    })
+    // Query to check for email failed.
+    .catch((err) => { return done(err); });
+  });
+}
+
+//validate login form.
+function handleErrorsLogin(req) {
+  let errors = {};
+  return new Promise((resolve, reject) => {
+    if (typeof req.body.password !== 'string' || req.body.password.trim().length === 0) {
+      errors.password = "Please enter your password";
     }
-    else if (req.body.password.length < 6) {
-      reject({
-        message: 'Password must be longer than 6 characters'
-      });
+
+    if (typeof req.body.email !== 'string' || req.body.email.trim().length === 0 || !validator.isEmail(req.body.email)) {
+      errors.email =  "Please enter your email";
+    }
+
+    if(isEmpty(errors)) {
+        resolve(errors);
     } else {
-      resolve();
+        reject({errors})
     }
+
   });
 }
 
@@ -63,5 +136,6 @@ module.exports = {
   comparePass,
   createUser,
   loginRequired,
-  loginRedirect
+  loginRedirect,
+  handleErrorsLogin
 };
