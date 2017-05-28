@@ -11,7 +11,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 1,
             avg_rating: 3,
             likes: 2,
-            tod: 'Evening'
+            tod: 'Evening',
+            created_at: knex.raw('now()')
           }),
 
         knex('plans').insert(
@@ -21,7 +22,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 2,
             avg_rating: 4,
             likes: 6,
-            tod: 'Afternoon'
+            tod: 'Afternoon',
+            created_at: knex.raw('now()')
           }),
 
         knex('plans').insert(
@@ -31,7 +33,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 3,
             avg_rating: 5,
             likes: 10,
-            tod: 'Evening'
+            tod: 'Evening',
+            created_at: knex.raw('now()')
           }),
 
         knex('plans').insert(
@@ -41,7 +44,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 1,
             avg_rating: 2,
             likes: 12,
-            tod: 'Afternoon'
+            tod: 'Afternoon',
+            created_at: knex.raw('now()')
           })
 
 
