@@ -6,6 +6,7 @@ const ENV         = process.env.ENV || "development";
 const express     = require("express");
 const session     = require("express-session")
 const app         = express();
+const cors        = require('cors')
 const bodyParser  = require("body-parser");
 const methodOverride = require('method-override');
 const passport    = require("passport");
@@ -58,6 +59,12 @@ app.use(flash());
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+
+// Cors allows for cross domain communication
+// Currently it's set without restrictions for demo purposes
+// Before creating a production/live version this must be restricted for specific routes
+app.use(cors());
+
 app.use(methodOverride('_method'))
 
 // Log knex SQL queries to STDOUT as well
@@ -65,6 +72,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

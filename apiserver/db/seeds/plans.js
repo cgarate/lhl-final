@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
           {
             name: 'Board Game',
             description: 'Sorry, monopoly, scrabble. Anything goes for this evening with board games.',
-            owner_id: 1,
+            owner_id: 7,
             avg_rating: 3,
             likes: 2,
             tod: 'Evening',
@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
           {
             name: 'Picnic on the Island',
             description: 'Lunch, bicycles, a ferry ride and the view of Toronto skyline.',
-            owner_id: 2,
+            owner_id: 8,
             avg_rating: 4,
             likes: 6,
             tod: 'Afternoon',
@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
           {
             name: 'Movie Night',
             description: faker.lorem.sentence(),
-            owner_id: 3,
+            owner_id: 10,
             avg_rating: 5,
             likes: 10,
             tod: 'Evening',
@@ -41,7 +41,7 @@ exports.seed = function(knex, Promise) {
           {
             name: 'Artsy',
             description: faker.lorem.sentence(),
-            owner_id: 1,
+            owner_id: 7,
             avg_rating: 2,
             likes: 12,
             tod: 'Afternoon',

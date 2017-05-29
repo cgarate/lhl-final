@@ -4,6 +4,7 @@
 const express = require('express');
 const router  = express.Router();
 const _ = require('underscore-node');
+const bodyParser  = require("body-parser");
 
 module.exports = (knex) => {
 
@@ -22,7 +23,7 @@ module.exports = (knex) => {
   //Get Items for a Plan
   router.get("/plan_item/:id", (req, res) => {
     knex
-      .select('item_id')
+      .select('item_id', 'plan_id', 'description')
       .where('plan_id', "=", req.params.id)
       .from("plans_items")
       .then( (results) => {
@@ -33,8 +34,8 @@ module.exports = (knex) => {
         .select(["items.*", "plans_items.description"])
         .from("items")
         .leftJoin("plans_items", "items.id", "=", "plans_items.item_id")
-        .whereIn('items.id', items)
-        andWhere("plans_items.plan_id", req.params.id);
+        .whereIn("items.id", items)
+        .andWhere("plans_items.plan_id", req.params.id);
       })
       .then( (results) => {
         res.json(results)
@@ -47,6 +48,7 @@ module.exports = (knex) => {
 
   // insert plans.
   router.post("/", (req, res) => {
+    //add json parse
     knex("plans")
       .returning('id')
       .insert({
@@ -57,8 +59,8 @@ module.exports = (knex) => {
         likes: req.body.likes,
         tod: req.body.tod
       }).then( (results) => {
-          let theID = {id: results}
-          res.status(200).json(theID);
+          //console.log("Response: ", res);
+          res.json(results);
       }, (rej) => {
         res.sendStatus(500);
       });
@@ -162,6 +164,41 @@ module.exports = (knex) => {
           res.sendStatus(400)
         });
     });
+
+    //Insert new plan, its items (3 tables)
+    router.post("/plan_items/", (req, res) => {
+      console.log(req.body)
+      knex("plans")
+        .returning('id')
+        .insert({
+          name: req.body.plans.name,
+          description: req.body.plans.description,
+          owner_id: req.body.plans.owner_id,
+          tod: req.body.plans.tod
+        })
+        .then( (results) => {
+          let planID = JSON.parse(results);
+          knex.batchInsert("items", req.body.items)
+          .returning('id')
+          .then( (ids) => {
+            let plans_items = [];
+            ids.forEach( (v, i) => {
+              plans_items.push({plan_id: planID, item_id: v})
+            })
+            knex.batchInsert("plans_items", plans_items)
+            .returning('id')
+            .then( () => {
+              res.sendStatus(200);
+            }, (reject) => {
+              console.error("Something went wrong after inserting plans_items. ", reject);
+            })
+          }, (reject) => {
+            console.error("Something went wrong after inserting items. ", reject)
+          })// reject/then
+        }, (reject) => {
+          console.error("Something went wrong after inserting plans. ", reject)
+        })
+    })
 
 return router;
 }
