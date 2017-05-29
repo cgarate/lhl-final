@@ -82,6 +82,7 @@ module.exports = (knex) => {
 
     // Update a user.
     router.put("/update/", (req, res) => {
+      console.log("body: ", req.body);
       knex("users")
       .where({
         id: req.body.id
