@@ -43,6 +43,20 @@ module.exports = (knex) => {
     });
   });
 
+  // insert users_plans.
+  router.post("/user_plan/", (req, res) => {
+    knex("users_plans")
+      .returning('id')
+      .insert({
+        plan_id: req.body.plan_id,
+        user_id: req.body.user_id,
+      }).then( (results) => {
+          res.sendStatus(200);
+      }, (rej) => {
+        res.sendStatus(500);
+      });
+    });
+
   // insert a user.
   router.post("/", (req, res) => {
     let created = new Date();

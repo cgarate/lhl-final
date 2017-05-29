@@ -27,7 +27,8 @@ class HomePage extends Component {
         email: '',
         password: ''
       },
-      dateplans: []
+      dateplans: [],
+      events: []
     };
   };
 
@@ -108,74 +109,24 @@ class HomePage extends Component {
                 </TableRow>
               </TableHeader>
               <TableBody
-                displayRowCheckbox={this.state.showCheckBoxes}
-              >
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
-              </TableRow>
+                displayRowCheckbox={this.state.showCheckBoxes}>
+
+              {this.state.events.map( (event) => {
+                <TableRow>
+                  <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
+                </TableRow>
+              })}
+
+
               </TableBody>
             </Table>
 
           </div>
         </div>
 
+        {/* Date Plans owned by user */}
         <div className="datePlanSection">
           <div className="sectionTitle">My Date Plans</div>
           <div className="datePlanList">
@@ -188,6 +139,9 @@ class HomePage extends Component {
             </MobileTearSheet>
           </div>
         </div>
+
+
+
         <div className="chatSection">
           <div className="sectionTitle">Chat</div>
           <div className="chatWindow">
