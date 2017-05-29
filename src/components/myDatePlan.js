@@ -122,6 +122,12 @@ class MyDatePlan extends Component {
   componentDidMount() {    
   
     this.getAllDatePlansForUserReact();
+
+    const script1 = document.createElement("script");
+    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+    script1.name = "googleMaps";
+    script1.async = true;
+    document.body.appendChild(script1);
   
 }
 
@@ -219,9 +225,20 @@ class MyDatePlan extends Component {
         <div className="datePlanMapSection">
           <div className="sectionTitle">Map</div>
           <div className="datePlanMap">
+            <div id="map"></div>
+              <div className="options-box options-box-none">
+                <div>
+                  <input id="zoom-to-area-text" type="text" placeholder="Enter Where To Go!"/>
+                  <input id="zoom-to-area" type="button" value="Zoom"/>
+                </div>
+                <div>
+                  <span className="text">Search for nearby places</span>
+                  <input id="places-search" type="text" placeholder="Ex. Bars in the TO"/>
+                  <input id="go-places" type="button" value="Go"/>
+                </div>
+              </div>
           </div>
         </div>
-        
       </div>
     );
   }

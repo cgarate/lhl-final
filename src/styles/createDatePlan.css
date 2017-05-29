@@ -1,0 +1,126 @@
+.createDatePlanMain {
+  position: relative;
+  /*width: 100%;*/
+  padding: 20px;
+}
+
+.pageTitle {
+  margin: 30px 0 0 30px;
+  font-size: 3em;
+}
+
+.planItemsCreateForm {
+  position: relative;
+  background-color: lightblue;
+  margin: 60px auto;
+  padding: 20px;
+  width: 80%;
+  min-width: 300px;
+  max-width: 1000px;
+
+}
+
+.createDatePlanForm {
+  width: 100%;
+  margin: 40px 0 0 0;
+  /*background-color: lightblue;*/
+  /*background-color: lightgoldenrodyellow;*/
+}
+
+.createFormNameInput {
+  width: 90%;
+  padding: 12px 30px;
+  margin: 8px 0 30px 20px;
+  display: inline-block;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+  background-color: white !important;
+}
+
+.createFormButton {
+  width: 20%;
+  background-color: #9e16ff;
+  color: white;
+  padding: 14px 20px 14px 15px;
+  margin: 8px 25px 8px 0;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  font-size: 1em;
+}
+
+.createDatePlanMapSection {
+  /*position: relative;*/
+  /*margin: 60px auto;*/
+
+  padding-top: 40px;
+  width: 100%;
+  min-width: 300px;
+  max-width: 1000px;
+  min-height: 725px;
+  background-color: lightblue;
+  overflow: auto;
+}
+
+.createDatePlanNameLabel {
+  margin: 0px;
+  font-size: 1em;
+  color: #000;
+}
+
+
+
+.createDatePlanMapSearch {
+  padding: 20px;
+}
+
+.places-search {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0 8px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.go-places {
+  width: 20%;
+  background-color: #9e16ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 25px 8px 0;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  font-size: 1em;
+}
+
+.infoWindowButton {
+  width: 20%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 25px 8px 0;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  font-size: 1em;
+}
+
+.createDatePlanTable {
+  width: 90% !important;
+  margin: 20px;
+}
+
+.userSelectedItems {
+  background-color: lightgray;
+}
+
+.removeItemFromPlan {
+  float: right;
+
+}

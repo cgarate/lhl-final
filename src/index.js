@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 //import Routes from './routes.js';
 import Base from './components/Base.jsx';
 import NavBar from './components/navbar.js';
+import CreateDatePlan from './components/createDatePlan.js';
 import HomePage from './containers/HomePage.jsx';
 import Profile from './components/profile.js';
 import MyDatePlan from './components/myDatePlan.js';
@@ -34,6 +35,7 @@ ReactDom.render((
           <Route path='/profile' component={Profile} />
           <Route path='/datePlans' component={DatePlan} />
           <Route path='/myDatePlans' component={MyDatePlan} />
+          <Route path='/createDatePlans' component={CreateDatePlan} />
         </div>
       </Base>
     </Router>
