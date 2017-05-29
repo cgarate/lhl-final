@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
+//import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
@@ -8,6 +9,7 @@ import PropTypes from 'prop-types';
 const SignUpForm = ({
   onSubmit,
   onChange,
+  // onChangeDate,
   errors,
   user
 }) => (
@@ -19,13 +21,42 @@ const SignUpForm = ({
 
       <div className="field-line">
         <TextField
-          floatingLabelText="Name"
-          name="name"
-          errorText={errors.name}
+          floatingLabelText="First Name"
+          name="first_name"
+          errorText={errors.first_name}
           onChange={onChange}
-          value={user.name}
+          value={user.first_name}
         />
       </div>
+
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Last Name"
+          name="last_name"
+          errorText={errors.last_name}
+          onChange={onChange}
+          value={user.last_name}
+        />
+      </div>
+
+      {/* <DatePicker
+        hintText="Date of Birth"
+        name="dob"
+        mode="landscape"
+        onChange={onChangeDate}
+        defaultValue={user.dob}
+       /> */}
+
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Username"
+          name="username"
+          errorText={errors.username}
+          onChange={onChange}
+          value={user.username}
+        />
+      </div>
+
 
       <div className="field-line">
         <TextField
@@ -61,6 +92,7 @@ const SignUpForm = ({
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  // onChangeDate: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };

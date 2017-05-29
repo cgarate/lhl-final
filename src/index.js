@@ -5,8 +5,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import registerServiceWorker from './registerServiceWorker';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Link } from 'react-router-dom';
 //import Routes from './routes.js';
+
 import Base from './components/Base.jsx';
 import NavBar from './components/navbar.js';
 import CreateDatePlan from './components/createDatePlan.js';
@@ -14,8 +15,12 @@ import HomePage from './containers/HomePage.jsx';
 import Profile from './components/profile.js';
 import MyDatePlan from './components/myDatePlan.js';
 import DatePlan from './components/allDatePlan.js';
+
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
+import LogoutPage from './containers/LogoutPage.jsx';
+
+import Auth from './modules/Auth.js';
 import './index.css'
 
 
@@ -26,6 +31,7 @@ registerServiceWorker();
 ReactDom.render((
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <Router>
+
       <Base>
         <div>
           <NavBar/>
@@ -38,5 +44,6 @@ ReactDom.render((
           <Route path='/createDatePlans' component={CreateDatePlan} />
         </div>
       </Base>
+
     </Router>
   </MuiThemeProvider>), document.getElementById('root'));

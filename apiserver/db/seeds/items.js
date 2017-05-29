@@ -1,6 +1,7 @@
 exports.seed = function(knex, Promise) {
 
   const faker = require('faker');
+  return knex('plans_items').del();
   return knex('items').del()
     .then(function () {
       return Promise.all([
@@ -16,7 +17,8 @@ exports.seed = function(knex, Promise) {
             province: faker.address.stateAbbr(),
             country: faker.address.country(),
             hours: "Monday-Friday / 9:00 to 23:00 hrs",
-            website: faker.internet.url()
+            website: faker.internet.url(),
+            created_at: knex.raw('now()')
           }),
 
         knex('items').insert(
@@ -31,7 +33,8 @@ exports.seed = function(knex, Promise) {
             province: faker.address.stateAbbr(),
             country: faker.address.country(),
             hours: "Monday-Friday / 9:00 to 23:00 hrs",
-            website: faker.internet.url()
+            website: faker.internet.url(),
+            created_at: knex.raw('now()')
           }),
 
         knex('items').insert(
@@ -46,7 +49,8 @@ exports.seed = function(knex, Promise) {
             province: faker.address.stateAbbr(),
             country: faker.address.country(),
             hours: "Monday-Friday / 9:00 to 23:00 hrs",
-            website: faker.internet.url()
+            website: faker.internet.url(),
+            created_at: knex.raw('now()')
           })
 
       ]);

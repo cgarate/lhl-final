@@ -1,5 +1,6 @@
 exports.seed = function(knex, Promise) {
   const faker = require('faker');
+  return knex('users').del();
   return knex('plans').del()
     .then(function () {
       return Promise.all([
@@ -10,7 +11,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 7,
             avg_rating: 3,
             likes: 2,
-            tod: 'Evening'
+            tod: 'Evening',
+            created_at: knex.raw('now()')
           }),
 
         knex('plans').insert(
@@ -20,7 +22,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 8,
             avg_rating: 4,
             likes: 6,
-            tod: 'Afternoon'
+            tod: 'Afternoon',
+            created_at: knex.raw('now()')
           }),
 
         knex('plans').insert(
@@ -30,7 +33,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 10,
             avg_rating: 5,
             likes: 10,
-            tod: 'Evening'
+            tod: 'Evening',
+            created_at: knex.raw('now()')
           }),
 
         knex('plans').insert(
@@ -40,7 +44,8 @@ exports.seed = function(knex, Promise) {
             owner_id: 7,
             avg_rating: 2,
             likes: 12,
-            tod: 'Afternoon'
+            tod: 'Afternoon',
+            created_at: knex.raw('now()')
           })
 
 

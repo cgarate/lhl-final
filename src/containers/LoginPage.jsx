@@ -5,18 +5,16 @@ import PropTypes from 'prop-types';
 
 class LoginPage extends React.Component {
 
-  /**
-   * Class constructor.
-   */
+
   constructor(props, context) {
     super(props, context);
 
-    const storedMessage = localStorage.getItem('successMessage');
+    const storedMessage = localStorage.getItem('signupStatus');
     let successMessage = '';
 
     if (storedMessage) {
       successMessage = storedMessage;
-      localStorage.removeItem('successMessage');
+      localStorage.removeItem('signupStatus');
     }
 
     // set the initial component state
@@ -33,11 +31,7 @@ class LoginPage extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
+
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
@@ -49,13 +43,12 @@ class LoginPage extends React.Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
+    xhr.open('post', 'http://localhost:8080/api/auth/login');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.withCredentials = true;
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        // success
-
         // change the component-container state
         this.setState({
           errors: {}
@@ -64,12 +57,11 @@ class LoginPage extends React.Component {
         // save the token
         Auth.authenticateUser(xhr.response.token);
 
-
         // change the current URL to /
-        this.context.router.replace('/');
-      } else {
-        // failure
+        this.context.router.history.replace('/');
 
+      } else {
+        console.log(xhr.response);
         // change the component state
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
@@ -82,11 +74,6 @@ class LoginPage extends React.Component {
     xhr.send(formData);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -97,16 +84,13 @@ class LoginPage extends React.Component {
     });
   }
 
-  /**
-   * Render the component.
-   */
+
   render() {
     return (
       <LoginForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
-        successMessage={this.state.successMessage}
         user={this.state.user}
       />
     );

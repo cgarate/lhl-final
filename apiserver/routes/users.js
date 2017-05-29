@@ -45,6 +45,7 @@ module.exports = (knex) => {
 
   // insert a user.
   router.post("/", (req, res) => {
+    let created = new Date();
     knex("users")
       .returning('*')
       .insert({
@@ -54,7 +55,8 @@ module.exports = (knex) => {
         username: req.body.username,
         password: req.body.password,
         dob: req.body.dob,
-        archived: 0
+        archived: 0,
+        created_at: created,
       }).then( (results) => {
           res.sendStatus(200);
       }, (rej) => {
