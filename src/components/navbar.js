@@ -27,7 +27,8 @@ class NavBar extends Component {
             <li>
               <Link to="/datePlans">All Date Plans</Link>
             </li>
-            <li>create plan
+            <li>
+              <Link to="/createDatePlans">Create Date Plan</Link>
             </li>
             <li>events
             </li>

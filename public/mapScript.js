@@ -6,7 +6,11 @@
       //selected places from map can be stored into this empty array.
       var dateplans = [];
 
+      var datePlanItems = [];
+
       var newPlace = {};
+
+      var newInfoWindow;
       
       function initMap() {
         var styles = [
@@ -71,14 +75,14 @@
               //////////  Listeners   /////////
 
         //this autocomplete is for use in the geocoder entry box.
-        var zoomAutoComplete = new google.maps.places.Autocomplete(document.getElementById('zoom-to-area-text'));
+        // var zoomAutoComplete = new google.maps.places.Autocomplete(document.getElementById('zoom-to-area-text'));
 
 
 
         //searches and zooms in on a particular area in the city.
-        document.getElementById('zoom-to-area').addEventListener('click', function() {
-          zoomToArea();
-        });
+        // document.getElementById('zoom-to-area').addEventListener('click', function() {
+        //   zoomToArea();
+        // });
 
         //create a searchbox in order to execute a places searchbox
         var searchBox = new google.maps.places.SearchBox(
@@ -93,6 +97,14 @@
 
         //listen for the event fired when the user selects a prediction and clicks "go" more details for that place (not selecting a suggested search query).
         document.getElementById('go-places').addEventListener('click', textSearchPlaces);
+        document.getElementById('places-search').addEventListener('keypress', function (e) {
+          var key = e.which || e.keyCode;
+          console.log("keypress");
+          if (key === 13) {
+          e.preventDefault();
+          textSearchPlaces();
+          }
+        });
 
 
 
@@ -248,7 +260,7 @@
 
                 // innerHTML += '<input type="hidden" name="place" value="'+ place +'">'
                 // console.log(place)
-                innerHTML += '<br><button id="add-location" type="button" onclick="addLocationToPlans()" data-id="4">Add to plans</button>';
+                innerHTML += '<br><button id="add-location" className="infoWindowButton" type="button" onclick="addLocationToPlans(); closeInfoWindow(newInfoWindow);" data-id="4">Add to plans</button>';
 
                 if (place.opening_hours) {
                   innerHTML += '<br><br><strong>Hours:</strong><br>' +
@@ -266,6 +278,7 @@
                 innerHTML += '</div>';
                 infowindow.setContent(innerHTML);
                 infowindow.open(map, marker);
+                newInfoWindow = infowindow;
                 //make sure the marker property is cleared if the infowindow is closed.
                 infowindow.addListener('closeclick' , function() {
                   infowindow.marker = null;
@@ -288,19 +301,136 @@
 
       //function to push a selected place into date plans array.
       function addLocationToPlans(event) {
-        console.log("testjkjlkjh: ", newPlace)
-        let that = this;
-        let url = 'http://localhost:8080/api/plans/'
+        console.log("dateplanitems1: ", datePlanItems);
+        datePlanItems.push(newPlace);
+        console.log("dateplanitems1.5: ", datePlanItems);
 
-        fetch(url)
-        .then(function(response) {
-          if (response.status >= 400) {
-            throw new Error("Bad response from server");
+        const tableRow = document.createElement("tr");
+        tableRow.setAttribute("id", "testId");
+        const cellName = document.createElement("td");
+        const cellRemove = document.createElement("td");
+        const removeButton = document.createElement("BUTTON");
+        removeButton.onclick = function () {
+          var buttonParent = this.parentNode;
+          var cellParent = buttonParent.parentNode;
+          var parent = document.getElementById("selectedItemsTableBody");
+          parent.removeChild(cellParent);
+          removeItemFromDatePlan(this.value);
+          console.log("dateplanitems2: ", datePlanItems);
+          
+        };
+        removeButton.setAttribute("class", "removeItemFromPlan");
+        removeButton.innerHTML = "Remove";
+        removeButton.value = newPlace.place_id;
+
+        cellName.innerHTML = newPlace.name;
+        cellRemove.appendChild(removeButton);
+
+        // testData.innerHTML = "hello";
+        tableRow.appendChild(cellName);
+        tableRow.appendChild(cellRemove);
+
+        document.getElementById('selectedItemsTableBody').appendChild(tableRow);
+        
+        // const row = document.createElement("TableRow");
+
+        
+        // console.log(itemRows);
+        // document.body.appendChild(row);
+
+        // document.getElementById('createDatePlanItemList').appendChild(testData);
+
+
+        // let that = this;
+        // let url = 'http://localhost:8080/api/items'
+
+        // fetch(url.concat(planId))
+        // .then(function(response) {
+        //   if (response.status >= 400) {
+        //     throw new Error("Bad response from server");
+        //   }
+        //   return response.json();
+        // })
+        // .then(function(data) {
+        //   console.log(data);
+        // });
+
+      }
+
+      function removeItemFromDatePlan(placeId) {
+        console.log("dateplanitems3: ", datePlanItems)
+        for (var i in datePlanItems) {
+          if (datePlanItems[i].place_id === placeId)
+            datePlanItems.splice(i, 1);
+        }
+      }
+
+      function closeInfoWindow(newInfoWindow) {
+        newInfoWindow.marker = null;
+        newInfoWindow.close();
+      }
+
+      function buttonTest() {
+
+        // console.log("hi dawg");
+        // const row = document.createElement("TableRow");
+        // const cell1 = document.createElement("TableRowColumn");
+        // cell1.innerHTML = "Paragraph changed!";
+        // row.appendChild(cell1);
+        // console.log("row", row);
+        // console.log("cell", cell1);
+
+        // document.getElementById('createDatePlanTableBody').appendChild(row);
+        // document.body.appendChild(row);
+
+        var aPlace = {
+          name: "Woooo Baby!"
+        }
+
+        const testRow = document.createElement("tr");
+        testRow.setAttribute("id", "testId");
+        const testCell1 = document.createElement("td");
+        const testCell2 = document.createElement("td");
+        const testButton = document.createElement("BUTTON");
+        testButton.onclick = function () {
+          var buttonParent = this.parentNode;
+          var cellParent = buttonParent.parentNode;
+          var parent = document.getElementById("selectedItemsTableBody");
+          // var child = document.getElementById("testId");
+          parent.removeChild(cellParent);
+          
+        };
+
+        testCell1.innerHTML = aPlace.name;
+        testCell2.appendChild(testButton);
+
+        // testData.innerHTML = "hello";
+        testRow.appendChild(testCell1);
+        testRow.appendChild(testCell2);
+
+        document.getElementById('selectedItemsTableBody').appendChild(testRow);
+      }
+
+      function dataTest() {
+        let arr1 = [
+          {
+            id: 1,
+            str: "hello"
+          },
+          {
+            id: 2,
+            str: "hello2"
           }
-          return response.json();
-        })
-        .then(function(data) {
-          console.log(data);
-        });
+        ]
+        return arr1;
+      }
 
+      function clearDatePlanItems() {
+        console.log("allDatePlanItems", datePlanItems);
+        datePlanItems = [];
+        console.log("allDatePlanItems", datePlanItems);
+      }
+
+      function alertValidation() {
+        alert("Please enter a Date Plan name, description, and at least one activity to create a plan.");
       }

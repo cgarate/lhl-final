@@ -35,6 +35,7 @@ class DatePlan extends Component {
       datePlans: []
     }
     this.getAllDatePlanItemsReact = this.getAllDatePlanItemsReact.bind(this);
+    this.saveDatePlanToUserReact = this.saveDatePlanToUserReact.bind(this);
   }
 
 
@@ -55,14 +56,38 @@ class DatePlan extends Component {
   //   this.setState({datePlans: selectedCategory});
   // }
 
-  loadDatePlanActivities = (aPlan) => {
+  saveDatePlanToUserReact = (aPlan) => {
 
-    for (var i in this.state.datePlans) {
-      console.log("now here");
-      if (this.state.datePlans[i].id === aPlan) {
-        this.setState({aSingleDatePlan: this.state.datePlans[i]});
+
+    const planId = encodeURIComponent(aPlan);
+    const userId = encodeURIComponent(10);
+    const formData = `plan_id=${planId}&user_id=${userId}`;
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'http://localhost:8080/api/plans/');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        xhr.response;
+        console.log("now: ", xhr.response);
       }
-    }
+    })
+    xhr.send(formData);
+
+    // let url = 'http://localhost:8080/api/plans/'
+
+    // console.log("weeeee");
+    // fetch(url)
+    // .then(function(response) {
+    //   if (response.status >= 400) {
+    //     throw new Error("Bad response from server");
+    //   }
+    //   return response.json();
+    // })
+    // .then(function(data) {
+    //   console.log(data);
+    // });
   }
 
   getAllDatePlansReact() {
@@ -100,27 +125,52 @@ class DatePlan extends Component {
     });
   }
 
+  // checkForScripts = () => {
+  //   var len = document.getElementsByName('googleMaps');
+  //   // var len = document.getElementsByTagName('script[src=""https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap""]').length;
+  //   console.log(len.length);
+  //   console.log(len);
+  //   // callback(len);
+  // }
+
+  // loopScripts = (scr) => {
+  //   console.log(Object.prototype.toString.call(scr));
+  //   if (scr.constructor === Array) {
+  //     console.log("yay");
+  //   } else {
+  //     console.log("duh");
+  //   }
+  //   scr.filter(function () {
+  //     console.log("herehere1");
+  //       return (len.attr('src') === "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap");
+  //   }).length;
+  // }
+
   componentDidMount() {    
   
     this.getAllDatePlansReact();
 
     //get the number of `<script>` elements that have the correct `src` attribute
-    var len = document.getElementsByTagName('script')
-    console.log(len);
+
+    // this.checkForScripts();
+    
+    // var len = document.getElementsByTagName('script');
+    // console.log(len.length);
+    
     // .filter(function () {
     //   console.log("herehere1");
     //     return (len.attr('src') === "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap");
     // }).length;
 
     //if there are no scripts that match, the load it
-    if (len === 0) {
+    // if (len === 0) {
       console.log("herehere1");
-        // $.getScript('<external JS>');
       const script1 = document.createElement("script");
-      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
+      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+      script1.name = "googleMaps";
       script1.async = true;
       document.body.appendChild(script1);
-    }
+    // }
 
 
     
@@ -145,19 +195,18 @@ class DatePlan extends Component {
       let theTableRows = [];
       if(this.state.datePlans) {
         theTableRows  = this.state.datePlans.map( item => {
-        console.log("plan: ", this.state.datePlans.length);
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
             <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View Plan" primary={true} key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Save Plan" primary={true} key={item.id} onClick={this.loadDatePlanActivities.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Save Plan" primary={true} key={item.id} onClick={this.saveDatePlanToUserReact.bind(null, item.id)}/></TableRowColumn>
           </TableRow>)
         });
       }
       outputDatePlans = (
         <Table
           fixedHeader={true}
-          height="200px"
+          height="300px"
         >
           <TableHeader
             displaySelectAll={this.state.showCheckBoxes}
@@ -228,7 +277,7 @@ class DatePlan extends Component {
           <div className="datePlanMap">
             <div>
               <div id="map"></div>
-              <div className="options-box">
+              <div className="options-box options-box-none">
                 <div>
                   <input id="zoom-to-area-text" type="text" placeholder="Enter Where To Go!"/>
                   <input id="zoom-to-area" type="button" value="Zoom"/>

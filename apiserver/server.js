@@ -44,6 +44,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use("/styles", sass({
 //   src: __dirname + "/styles",

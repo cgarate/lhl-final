@@ -29,9 +29,9 @@ html, body {
 }
 
 #zoom-to-area-text {
-  position: relative;
-  width: 250px;
-  margin: 20px;
+  /*position: relative;*/
+  /*width: 250px;
+  margin: 0px;*/
 }
 
 #zoom-to-area {
