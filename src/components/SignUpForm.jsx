@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
+//import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
@@ -8,6 +9,7 @@ import PropTypes from 'prop-types';
 const SignUpForm = ({
   onSubmit,
   onChange,
+  // onChangeDate,
   errors,
   user
 }) => (
@@ -36,6 +38,14 @@ const SignUpForm = ({
           value={user.last_name}
         />
       </div>
+
+      {/* <DatePicker
+        hintText="Date of Birth"
+        name="dob"
+        mode="landscape"
+        onChange={onChangeDate}
+        defaultValue={user.dob}
+       /> */}
 
       <div className="field-line">
         <TextField
@@ -82,6 +92,7 @@ const SignUpForm = ({
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  // onChangeDate: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };

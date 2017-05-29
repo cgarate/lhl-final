@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Route, NavLink, Link } from 'react-router-dom'
 import HomePage from './components/HomePage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
+import LogoutPage from './containers/LogoutPage.jsx';
+
 import Auth from './modules/Auth.js';
 import './index.css'
 
@@ -43,7 +45,7 @@ ReactDom.render((
         <Route path='/' component={HomePage} />
         <Route path='/signup' component={SignUpPage} />
         <Route path='/login' component={LoginPage} />
-        {/* <Route path='/logout' component={Logout} /> */}
+        <Route onEnter={Auth.deauthenticateUser()} path='/logout' component={LogoutPage} />
       </div>
     </Router>
   </MuiThemeProvider>), document.getElementById('root'));

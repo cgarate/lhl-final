@@ -34,7 +34,8 @@ function createUser(req, res) {
       last_name: req.body.last_name,
       username: req.body.username,
       email: req.body.email,
-      password: hash
+      password: hash,
+      created_at: new Date()
     })
     .returning('*');
   })

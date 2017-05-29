@@ -16,11 +16,13 @@ class SignUpPage extends React.Component {
         last_name: '',
         username: '',
         password: ''
+        // dob: ''
       }
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
+    // this.changeDate = this.changeDate.bind(this);
   }
 
   processForm(event) {
@@ -48,6 +50,9 @@ class SignUpPage extends React.Component {
           errors: {}
         });
 
+        // Save this message. It will be used in the login page to let the users know that they are registered.
+        localStorage.setItem('signupStatus', xhr.response.message);
+
         // make a redirect
         this.context.router.history.replace('/login');
 
@@ -74,6 +79,12 @@ class SignUpPage extends React.Component {
     });
   }
 
+  // changeDate(event, date) {
+  //   this.setState({
+  //     user: { dob: date }
+  //   });
+  // }
+
   /**
    * Render the component.
    */
@@ -82,6 +93,7 @@ class SignUpPage extends React.Component {
       <SignUpForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
+        // onChangeDate={this.changeDate}
         errors={this.state.errors}
         user={this.state.user}
       />
