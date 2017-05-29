@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import Auth from '../modules/Auth';
 import {
   Table,
   TableBody,
@@ -28,31 +22,71 @@ class HomePage extends Component {
     super(props)
     this.state = {
       selectable: false,
-      showCheckBoxes: false
+      showCheckBoxes: false,
+      user: {
+        email: '',
+        password: ''
+      },
+      dateplans: []
     };
-  }
+  };
 
   getAllUsersReact() {
-    var that = this;
+    // Put a call to user's events here
+    //var that = this;
     var url = 'http://localhost:8080/api/users/'
 
     fetch(url)
-    .then(function(response) {
-      if (response.status >= 400) {
-        throw new Error("Bad response from server");
+    .then( (response) => {
+      if (response.status !== 200) {
+        throw new Error("Error code: ", response.status);
       }
-      return response.json();
+      return response.json()
+      .then( (data) => {
+        console.log(data);
+        // that.setState({ person: data.person });
+      }, (reject) => {
+        console.error("Fetch rejected: ", reject);
+      })
+    }, (reject) => {
+      console.error("Fetch rejected: ", reject)
     })
-    .then(function(data) {
-      console.log(data);
-      // that.setState({ person: data.person });
-    });
+    .catch( (err) => {
+      console.error("Fetch in Homepage.jsx failed: ", err)
+    })
   }
 
-  componentDidMount() {     
-  
-    this.getAllUsersReact();
-  
+  getDatePlans() {
+    let url = "http://localhost:8080/api/plans/plan_user/"
+    url = url.concat(Auth.getUserID())
+    fetch(url)
+    .then( (response) => {
+      if (response.status !== 200) {
+        throw new Error("Error code: ", response.status);
+      }
+      return response.json()
+      .then( (result) => {
+        let datePlans = this.state.datePlans;
+        datePlans = result;
+        this.setState({dateplans: datePlans});
+
+      }, (reject) => {
+        console.error("Fetch rejected: ", reject);
+      })
+    }, (reject) => {
+      console.error("Fetch rejected: ", reject)
+    })
+    .catch( (err) => {
+      console.error("Fetch in Homepage.jsx failed: ", err)
+    })
+  }
+
+  componentDidMount() {
+
+    //this.getAllUsersReact();
+    this.getDatePlans();
+    Auth.getUserID();
+    Auth.getUserName();
   }
 
   render() {
@@ -69,7 +103,7 @@ class HomePage extends Component {
               >
                 <TableRow>
                   <TableHeaderColumn className="tableCellStyle">Date Name</TableHeaderColumn>
-                  <TableHeaderColumn className="tableCellStyle">Date Plan</TableHeaderColumn> 
+                  <TableHeaderColumn className="tableCellStyle">Date Plan</TableHeaderColumn>
                   <TableHeaderColumn className="tableCellStyle">Date/Time</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
@@ -78,84 +112,78 @@ class HomePage extends Component {
               >
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
               </TableRow>
               <TableRow>
                 <TableRowColumn className="tableCellStyle">Rebecca</TableRowColumn>
-                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn> 
+                <TableRowColumn className="tableCellStyle">The Club</TableRowColumn>
                 <TableRowColumn className="tableCellStyle">June 3 2017 10:00pm</TableRowColumn>
               </TableRow>
               </TableBody>
             </Table>
-            
+
           </div>
         </div>
+
         <div className="datePlanSection">
           <div className="sectionTitle">My Date Plans</div>
           <div className="datePlanList">
             <MobileTearSheet>
               <List>
-                <ListItem primaryText="The Beach"/>
-                <Divider/>
-                <ListItem primaryText="The Club"/>
-                <Divider/>
-                <ListItem primaryText="The Romantic Dinner"/>
-                <Divider/>
-                <ListItem primaryText="The Walk in the Park"/>
-                <Divider/>
-                <ListItem primaryText="No Time to Waste"/>
-                <Divider/>
+                {this.state.dateplans.map( (dateplan) => {
+                  return <div key={dateplan.id}><ListItem primaryText={dateplan.name} /><Divider /></div>
+                })}
               </List>
             </MobileTearSheet>
           </div>
@@ -226,7 +254,7 @@ class HomePage extends Component {
           </div>
         </div>
       </div>
-      
+
     );
   }
 }

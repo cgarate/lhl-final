@@ -56,9 +56,9 @@ class LoginPage extends React.Component {
 
         // save the token
         Auth.authenticateUser(xhr.response.token);
-
+        Auth.saveUserInfo(xhr.response.userData);
         // change the current URL to /
-        this.context.router.history.replace('/');
+        this.context.router.history.replace('/home');
 
       } else {
         console.log(xhr.response);

@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+
 import {
   Table,
   TableBody,
@@ -14,8 +8,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/datePlan.css';
 import SingleDatePlan from './singleDatePlan.js';
@@ -88,7 +81,6 @@ class MyDatePlan extends Component {
   }
 
   getAllDatePlanItemsReact(planId) {
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
@@ -104,7 +96,6 @@ class MyDatePlan extends Component {
   }
 
   removeDatePlanReact(planId) {
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
@@ -119,8 +110,8 @@ class MyDatePlan extends Component {
     });
   }
 
-  componentDidMount() {    
-  
+  componentDidMount() {
+
     this.getAllDatePlansForUserReact();
 
     const script1 = document.createElement("script");
@@ -128,19 +119,19 @@ class MyDatePlan extends Component {
     script1.name = "googleMaps";
     script1.async = true;
     document.body.appendChild(script1);
-  
+
 }
 
   render() {
 
-    let myPaddingStyle = {
-      paddingTop: 10,
-      paddingBottom: 10,
-      padding: 100
-    }
+    // let myPaddingStyle = {
+    //   paddingTop: 10,
+    //   paddingBottom: 10,
+    //   padding: 100
+    // }
 
     let outputDatePlans;
-    if (this.state.datePlans != 0) {
+    if (this.state.datePlans !== 0) {
       let theTableRows = [];
       if(this.state.datePlans) {
         theTableRows  = this.state.datePlans.map( item => {
@@ -187,10 +178,10 @@ class MyDatePlan extends Component {
           this.state.datePlans.forEach( item => {
             item.planItems.forEach( singlePlanItem => {
               counter++;
-              theMenuItems.push(<MenuItem value={counter} 
+              theMenuItems.push(<MenuItem value={counter}
                 key={counter}
-                label={singlePlanItem.itemDetails.category} 
-                primaryText={singlePlanItem.itemDetails.category} 
+                label={singlePlanItem.itemDetails.category}
+                primaryText={singlePlanItem.itemDetails.category}
                 onClick={this.loadDatePlanCategory.bind(null, singlePlanItem.itemDetails.category)}
                 onTouchTap={this.props.onTouchTap}/>
               )
@@ -203,7 +194,7 @@ class MyDatePlan extends Component {
           </DropDownMenu>
         )
     }*/
-    
+
     return (
       <div className="datePlanMain">
         <div className="pageTitle">My Date Plans</div>

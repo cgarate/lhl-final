@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+
 import {
   Table,
   TableBody,
@@ -30,7 +24,7 @@ class SingleDatePlan extends Component {
 
     let outputActivities;
     console.log("here1");
-    if (this.props.aDatePlan != 0) {
+    if (this.props.aDatePlan !== 0) {
       console.log("here2");
       console.log(this.props.aDatePlan);
       let theTableRows = [];

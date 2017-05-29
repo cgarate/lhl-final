@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+
 import {
   Table,
   TableBody,
@@ -14,8 +8,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/datePlan.css';
 import '../styles/mapStyles.css';
@@ -62,14 +55,13 @@ class DatePlan extends Component {
     const planId = encodeURIComponent(aPlan);
     const userId = encodeURIComponent(10);
     const formData = `plan_id=${planId}&user_id=${userId}`;
-    
+
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/plans/');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        xhr.response;
         console.log("now: ", xhr.response);
       }
     })
@@ -109,7 +101,6 @@ class DatePlan extends Component {
 
   getAllDatePlanItemsReact(planId) {
     console.log("planId: ", planId);
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
@@ -146,17 +137,17 @@ class DatePlan extends Component {
   //   }).length;
   // }
 
-  componentDidMount() {    
-  
+  componentDidMount() {
+
     this.getAllDatePlansReact();
 
     //get the number of `<script>` elements that have the correct `src` attribute
 
     // this.checkForScripts();
-    
+
     // var len = document.getElementsByTagName('script');
     // console.log(len.length);
-    
+
     // .filter(function () {
     //   console.log("herehere1");
     //     return (len.attr('src') === "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap");
@@ -173,22 +164,22 @@ class DatePlan extends Component {
     // }
 
 
-    
+
 
     // const script2 = document.createElement("script");
     // script2.src = "./mapScript.js"
     // script2.async = true;
     // document.body.appendChild(script2);
-  
+
 }
 
   render() {
 
-    let myPaddingStyle = {
-      paddingTop: 10,
-      paddingBottom: 10,
-      padding: 100
-    }
+    // let myPaddingStyle = {
+    //   paddingTop: 10,
+    //   paddingBottom: 10,
+    //   padding: 100
+    // }
 
     let outputDatePlans;
     if (this.state.datePlans !== 0) {
@@ -237,10 +228,10 @@ class DatePlan extends Component {
           this.state.datePlans.forEach( item => {
             item.planItems.forEach( singlePlanItem => {
               counter++;
-              theMenuItems.push(<MenuItem value={counter} 
+              theMenuItems.push(<MenuItem value={counter}
                 key={counter}
-                label={singlePlanItem.itemDetails.category} 
-                primaryText={singlePlanItem.itemDetails.category} 
+                label={singlePlanItem.itemDetails.category}
+                primaryText={singlePlanItem.itemDetails.category}
                 onClick={this.loadDatePlanCategory.bind(null, singlePlanItem.itemDetails.category)}
                 onTouchTap={this.props.onTouchTap}/>
               )
@@ -253,7 +244,7 @@ class DatePlan extends Component {
           </DropDownMenu>
         )
     }*/
-    
+
     return (
       <div className="datePlanMain">
         <div className="pageTitle">All Date Plans</div>

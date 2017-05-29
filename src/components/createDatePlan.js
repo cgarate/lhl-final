@@ -1,24 +1,7 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+
 import '../styles/createDatePlan.css';
 // import '../styles/materialize.css';
-import CreateDatePlanTable from './createDatePlanTable.js'
-
-
 
 class CreateDatePlan extends Component {
 
@@ -31,7 +14,7 @@ class CreateDatePlan extends Component {
     this.saveDatePlan = this.saveDatePlan.bind(this);
     this.clearDatePlan = this.clearDatePlan.bind(this);
 
-    var createDatePlanTable = {};
+    //var createDatePlanTable = {};
   }
 
   testtest = () => {
@@ -49,7 +32,8 @@ class CreateDatePlan extends Component {
       window.alertValidation();
       return;
     }
-    let datePlanUser = 10;
+    let datePlanUser = 115;
+    console.log("user:", datePlanUser);
     var test = window.dataTest();
     console.log("name: ", datePlanName.value);
     console.log("desc: ", datePlanDesc.value);
@@ -60,19 +44,19 @@ class CreateDatePlan extends Component {
     const description = encodeURIComponent(datePlanDesc.value);
     const owner_id = encodeURIComponent(datePlanUser);
     const formData = `name=${name}&description=${description}&owner_id=${owner_id}`;
-    
+
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/plans/');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        xhr.response;
+        //xhr.response;
         console.log("now: ", xhr.response);
       }
     })
     xhr.send(formData);
-    
+
     // fetch('http://localhost:8080/api/plans/', {
     //   method: 'POST',
     //   headers: {
@@ -119,7 +103,7 @@ class CreateDatePlan extends Component {
   }
 
   componentDidMount() {
-    
+
       console.log("herehere1");
       const script1 = document.createElement("script");
       script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
@@ -181,7 +165,7 @@ class CreateDatePlan extends Component {
             {/*<MapView/>*/}
           </div>
         </div>
-        
+
       </div>
 
     );

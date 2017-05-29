@@ -63,7 +63,7 @@ app.use(morgan('dev'));
 // Cors allows for cross domain communication
 // Currently it's set without restrictions for demo purposes
 // Before creating a production/live version this must be restricted for specific routes
-app.use(cors());
+//app.use(cors());
 
 app.use(methodOverride('_method'))
 

@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+
 import '../styles/profile.css';
 
 
@@ -14,7 +8,7 @@ class ProfileForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+
     }
   }
 
