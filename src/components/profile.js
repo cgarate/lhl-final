@@ -15,8 +15,11 @@ class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+      userData: {
+        first_name: "tom"
+      }
     }
+    this.getUserInfo = this.getUserInfo.bind(this);
   }
 
   getUserInfo = () => {
@@ -39,7 +42,8 @@ class Profile extends Component {
       return response.json();
     })
     .then(function(data) {
-      console.log("what: ",data);
+      console.log("what: ", data[0]);
+      this.setState({ userData: data[0]})
       // that.setState({ datePlans: data });
     });
   }
@@ -55,7 +59,7 @@ class Profile extends Component {
       <div className="profileMainSection">
         <div className="pageTitle">Profile</div>
         <div>
-          <ProfileForm/>
+          <ProfileForm userInfo={this.state.userData}/>
         </div>
       </div>
     );

@@ -31,7 +31,7 @@ class ProfileForm extends Component {
                     <label htmlFor="profileFirstName">First Name</label>
                   </td>
                   <td>
-                    <input type="text" id="profileFirstName"/>
+                    <input type="text" id="profileFirstName" value={this.props.userInfo.first_name}/>
                   </td>
                 </tr>
                 <tr>
