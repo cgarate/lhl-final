@@ -30,6 +30,7 @@ const usersRoutes = require("./routes/users");
 const itemsRoutes = require("./routes/items");
 const plansRoutes = require("./routes/plans");
 const categoriesRoutes = require("./routes/categories");
+const eventsRoutes = require("./routes/events");
 const authRoutes = require('./routes/auth');
 //const apiRoutes = require('./routes/api');
 
@@ -63,7 +64,7 @@ app.use(morgan('dev'));
 // Cors allows for cross domain communication
 // Currently it's set without restrictions for demo purposes
 // Before creating a production/live version this must be restricted for specific routes
-app.use(cors());
+//app.use(cors());
 
 app.use(methodOverride('_method'))
 
@@ -84,6 +85,7 @@ app.use("/api/users", usersRoutes(knex));
 app.use("/api/items", itemsRoutes(knex));
 app.use("/api/plans", plansRoutes(knex));
 app.use("/api/categories", categoriesRoutes(knex));
+app.use("/api/events", eventsRoutes(knex));
 
 
 // Home page

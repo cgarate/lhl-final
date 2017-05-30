@@ -25,7 +25,6 @@ module.exports = (knex) => {
       .insert({
         name: req.body.name
       }).then( (results) => {
-          //console.log("Response: ", res);
           res.sendStatus(200);
       }, (rej) => {
         res.sendStatus(500);

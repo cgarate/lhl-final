@@ -68,7 +68,6 @@ module.exports = (knex) => {
 
     //Insert new plan, its items (3 tables)
     router.post("/plan_items/", (req, res) => {
-      console.log(req.body)
       knex("plans")
         .returning('id')
         .insert({

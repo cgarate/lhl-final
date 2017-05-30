@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
 import '../styles/profile.css';
 import ProfileForm from './profileForm.js';
 
@@ -30,7 +23,7 @@ class Profile extends Component {
   getUserInfo = () => {
     let ten = 10;
     let id = ten.toString();
-    let that = this;
+    //let that = this;
     let url = 'http://localhost:8080/api/users/'
 
     fetch(url.concat(id))
@@ -106,5 +99,3 @@ class Profile extends Component {
 }
 
 export default Profile;
-
-

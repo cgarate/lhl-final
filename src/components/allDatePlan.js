@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import Auth from '../modules/Auth';
 import {
   Table,
   TableBody,
@@ -14,8 +8,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/datePlan.css';
 import '../styles/mapStyles.css';
@@ -34,8 +27,10 @@ class DatePlan extends Component {
       aSingleDatePlan: [],
       datePlans: []
     }
+
     this.getAllDatePlanItemsReact = this.getAllDatePlanItemsReact.bind(this);
     this.saveDatePlanToUserReact = this.saveDatePlanToUserReact.bind(this);
+    this.getAllDatePlansReact = this.getAllDatePlansReact.bind(this);
   }
 
 
@@ -58,71 +53,65 @@ class DatePlan extends Component {
 
   saveDatePlanToUserReact = (aPlan) => {
 
-
     const planId = encodeURIComponent(aPlan);
-    const userId = encodeURIComponent(10);
+    const userId = encodeURIComponent(Auth.getUserID());
     const formData = `plan_id=${planId}&user_id=${userId}`;
-    
+
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/plans/');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        xhr.response;
         console.log("now: ", xhr.response);
       }
     })
     xhr.send(formData);
-
-    // let url = 'http://localhost:8080/api/plans/'
-
-    // console.log("weeeee");
-    // fetch(url)
-    // .then(function(response) {
-    //   if (response.status >= 400) {
-    //     throw new Error("Bad response from server");
-    //   }
-    //   return response.json();
-    // })
-    // .then(function(data) {
-    //   console.log(data);
-    // });
   }
 
+
+
   getAllDatePlansReact() {
-    let that = this;
     let url = 'http://localhost:8080/api/plans/'
 
     fetch(url)
-    .then(function(response) {
-      if (response.status >= 400) {
+    .then( (response) => {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
-      return response.json();
+      return response.json()
+      .then( (result) => {
+        let dateplans = this.state.dateplans;
+        dateplans = result;
+        this.setState({datePlans: dateplans});
+      }, (reject) => {
+        console.error("Fetch went wrong: ", reject)
+      });
+    }, (reject) => {
+      console.error("Fetch went wrong: ", reject)
     })
-    .then(function(data) {
-      console.log(data);
-      that.setState({ datePlans: data });
-    });
+
   }
 
   getAllDatePlanItemsReact(planId) {
-    console.log("planId: ", planId);
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
     .then((response) => {
-      if (response.status >= 400) {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
-      return response.json();
+      return response.json()
+      .then((result) => {
+        let items = this.state.aSingleDatePlan;
+        items = result;
+        this.setState({aSingleDatePlan: items});
+      }, (reject) => {
+        console.error("Fetch went wrong: ", reject)
+      });
+    }, (reject) => {
+      console.error("Fetch went wrong: ", reject)
     })
-    .then((data) => {
-      console.log(data);
-      this.setState({aSingleDatePlan: data});
-    });
   }
 
   // checkForScripts = () => {
@@ -146,17 +135,17 @@ class DatePlan extends Component {
   //   }).length;
   // }
 
-  componentDidMount() {    
-  
+  componentDidMount() {
+
     this.getAllDatePlansReact();
 
     //get the number of `<script>` elements that have the correct `src` attribute
 
     // this.checkForScripts();
-    
+
     // var len = document.getElementsByTagName('script');
     // console.log(len.length);
-    
+
     // .filter(function () {
     //   console.log("herehere1");
     //     return (len.attr('src') === "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap");
@@ -164,7 +153,6 @@ class DatePlan extends Component {
 
     //if there are no scripts that match, the load it
     // if (len === 0) {
-      console.log("herehere1");
       const script1 = document.createElement("script");
       script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
       script1.name = "googleMaps";
@@ -173,22 +161,22 @@ class DatePlan extends Component {
     // }
 
 
-    
+
 
     // const script2 = document.createElement("script");
     // script2.src = "./mapScript.js"
     // script2.async = true;
     // document.body.appendChild(script2);
-  
+
 }
 
   render() {
 
-    let myPaddingStyle = {
-      paddingTop: 10,
-      paddingBottom: 10,
-      padding: 100
-    }
+    // let myPaddingStyle = {
+    //   paddingTop: 10,
+    //   paddingBottom: 10,
+    //   padding: 100
+    // }
 
     let outputDatePlans;
     if (this.state.datePlans !== 0) {
@@ -237,10 +225,10 @@ class DatePlan extends Component {
           this.state.datePlans.forEach( item => {
             item.planItems.forEach( singlePlanItem => {
               counter++;
-              theMenuItems.push(<MenuItem value={counter} 
+              theMenuItems.push(<MenuItem value={counter}
                 key={counter}
-                label={singlePlanItem.itemDetails.category} 
-                primaryText={singlePlanItem.itemDetails.category} 
+                label={singlePlanItem.itemDetails.category}
+                primaryText={singlePlanItem.itemDetails.category}
                 onClick={this.loadDatePlanCategory.bind(null, singlePlanItem.itemDetails.category)}
                 onTouchTap={this.props.onTouchTap}/>
               )
@@ -253,7 +241,7 @@ class DatePlan extends Component {
           </DropDownMenu>
         )
     }*/
-    
+
     return (
       <div className="datePlanMain">
         <div className="pageTitle">All Date Plans</div>
