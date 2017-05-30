@@ -174,7 +174,7 @@ class CreateDatePlan extends Component {
                   </div>
                 </div>
               </div>
-              <input type="submit" className="createFormButton" onClick={this.saveDatePlan}/>
+              {/*<input type="submit" className="createFormButton" onClick={this.saveDatePlan}/>*/}
             {/*</form>*/}
           </div>
           <div>

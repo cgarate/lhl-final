@@ -21,10 +21,11 @@ class Profile extends Component {
         username: "",
         email: "",
         dob: "",
+        bio: "",
         id: 0
       }
     }
-    // this.getUserInfo = this.getUserInfo.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   getUserInfo = () => {
@@ -49,28 +50,34 @@ class Profile extends Component {
     .then(data => {
       console.log("what: ", data[0]);
       let userData1 = data[0];
-      this.setState({ userData: userData1})
+      this.setState({ userData: userData1});
+      this.state.userData = data[0];
       // that.setState({ datePlans: data });
     });
   }
 
   saveUserInfo = () => {
-    let s_first_name = document.getElementById("profileFirstName").value;
-    let s_last_name = document.getElementById("profileLastName").value;
-    let s_username = document.getElementById("profileUsername").value;
-    let s_email = document.getElementById("profileEmail").value;
-    let s_dob = document.getElementById("profileBirthdate").value;
-    let s_bio = document.getElementById("profileBio").value;
-    let s_id = document.getElementById("profileId").value;
+
+    console.log("USERDATA: ", this.state.userData);
+
+    // let s_first_name = document.getElementById("profileFirstName").value;
+    // let s_last_name = document.getElementById("profileLastName").value;
+    // let s_username = document.getElementById("profileUsername").value;
+    // let s_email = document.getElementById("profileEmail").value;
+    // let s_dob = document.getElementById("profileBirthdate").value;
+    // let s_bio = document.getElementById("profileBio").value;
+    // let s_id = document.getElementById("profileId").value;
+
+    console.log("USERDATA: ", this.state.userData);
 
     // create a string for an HTTP body message
-    const e_first_name = encodeURIComponent(s_first_name);
-    const e_last_name = encodeURIComponent(s_last_name);
-    const e_username = encodeURIComponent(s_username);
-    const e_email = encodeURIComponent(s_email);
-    const e_dob = encodeURIComponent(s_dob);
-    const e_bio = encodeURIComponent(s_bio);
-    const e_id = encodeURIComponent(s_id);
+    const e_first_name = encodeURIComponent(this.state.userData.first_name);
+    const e_last_name = encodeURIComponent(this.state.userData.last_name);
+    const e_username = encodeURIComponent(this.state.userData.username);
+    const e_email = encodeURIComponent(this.state.userData.email);
+    const e_dob = encodeURIComponent(this.state.userData.dob);
+    const e_bio = encodeURIComponent(this.state.userData.bio);
+    const e_id = encodeURIComponent(this.state.userData.id);
     const formData = `id=${e_id}&first_name=${e_first_name}&last_name=${e_last_name}&username=${e_username}&email=${e_email}&dob=${e_dob}&bio=${e_bio}`;
     
     const xhr = new XMLHttpRequest();
@@ -87,6 +94,16 @@ class Profile extends Component {
 
   }
 
+  changeUser(event) {
+    const field = event.target.name;
+    const user = this.state.userData;
+    user[field] = event.target.value;
+
+    this.setState({
+      user
+    });
+  }
+
 
   componentDidMount() {
 
@@ -94,11 +111,12 @@ class Profile extends Component {
   }
 
   render() {
+
     return (
       <div className="profileMainSection">
         <div className="pageTitle">Profile</div>
         <div>
-          <ProfileForm userInfo={this.state.userData} saveUser={this.saveUserInfo.bind(this)}/>
+          <ProfileForm userInfo={this.state.userData} onChange={this.changeUser} saveUser={this.saveUserInfo.bind(this)}/>
         </div>
       </div>
     );

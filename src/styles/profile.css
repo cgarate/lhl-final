@@ -1,7 +1,6 @@
 .profileMainSection {
   position: relative;
   padding: 20px;
-  background-color: pink;
 }
 
 .pageTitle {
@@ -30,10 +29,16 @@ form input {
     margin-bottom:10px;
 }
 
-table {
-  
-}
 
-table tr td {
+/*.profileTable {
+  margin: 60px auto;
+  background-color: pink;
+  border: 1px solid black;
+    table-layout: fixed;
+    width: 90%;
+    max-width: 800px;
+}*/
+
+/*table tr td, th  {
   text-align: right;
-}
+}*/
