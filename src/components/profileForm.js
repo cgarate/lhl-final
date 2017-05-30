@@ -14,9 +14,17 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import Subheader from 'material-ui/Subheader';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+
 import '../styles/profile.css';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
+import ImagesUploader from 'react-images-uploader';
+import 'react-images-uploader/styles.css';
+// import 'react-images-uploader/font.css';
 
 
 
@@ -38,6 +46,7 @@ class ProfileForm extends Component {
     // let birthday = new Date(this.props.userInfo.dob);
     let birthday = new Date();
 
+
     return (
       <div>
         <div>
@@ -49,12 +58,20 @@ class ProfileForm extends Component {
               >
                 <TableRow>
                   <TableHeaderColumn className="tableCellStyle tableCellHeaderStyle"></TableHeaderColumn>
-                  <TableHeaderColumn className="tableCellStyle tableCellHeaderStyle">Update Here</TableHeaderColumn>
+                  <TableHeaderColumn className="tableCellStyle tableCellHeaderStyle">Update Fields</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody
                 displayRowCheckbox={false}
               >
+              <TableRow>
+                  <TableRowColumn className="tableCellStyle">
+                    <label htmlFor="profileImage">Profile Image:</label>
+                  </TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">
+                    <img src="./images/smiley-face.jpg" height="250" width="250"/>
+                  </TableRowColumn>
+                </TableRow>
                 <TableRow>
                   <TableRowColumn className="tableCellStyle">
                     <label htmlFor="profileFirstName">First Name:</label>
@@ -110,13 +127,23 @@ class ProfileForm extends Component {
                   <TableRowColumn className="tableCellStyle">
                   </TableRowColumn>
                   <TableRowColumn className="tableCellStyle">
-                    <input type="submit" value="Update" onClick={this.props.saveUser}/>
+                    <input type="submit" value="Update" className="profileSubmitButton" onClick={this.props.saveUser}/>
                   </TableRowColumn>
                 </TableRow>
               </TableBody>
             </Table>
-            {/*<img src="./smiley-face.jpg" />*/}
           {/*</form>*/}
+          {/*<ImagesUploader
+                url="http://localhost:9090/notmultiple"
+                optimisticPreviews
+                multiple={false}
+                onLoadEnd={(err) => {
+                    if (err) {
+                        console.error(err);
+                    }
+                }}
+                label="Upload a picture"
+                />*/}
         </div>
       </div>
     );

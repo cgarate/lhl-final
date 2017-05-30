@@ -16,6 +16,7 @@
     "react-gmaps": "^1.6.0",
     "react-google-map": "^3.0.1",
     "react-google-maps-loader": "^2.0.2",
+    "react-images-uploader": "^1.0.1",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux-auth": "0.0.5-beta5"

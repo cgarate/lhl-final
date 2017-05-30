@@ -29,6 +29,17 @@ form input {
     margin-bottom:10px;
 }
 
+.profileSubmitButton {
+  width: 50%;
+  background-color: #9e16ff;
+  color: white;
+  padding: 14px 20px 14px 15px;
+  margin: 20px 25px 8px 0;
+  border: none;
+  border-radius: 4px;
+  float: left;
+  font-size: 1.2em;
+}
 
 /*.profileTable {
   margin: 60px auto;
