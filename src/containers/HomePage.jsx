@@ -28,24 +28,25 @@ class HomePage extends Component {
         password: ''
       },
       dateplans: [],
-      events: []
+      events: [],
+      mydateplans: [],
+      myevents: []
     };
   };
 
-  getAllUsersReact() {
-    // Put a call to user's events here
-    //var that = this;
-    var url = 'http://localhost:8080/api/users/'
-
+  getMyDatePlans() {
+    let url = "http://localhost:8080/api/plans/plan_user/"
+    url = url.concat(Auth.getUserID())
     fetch(url)
     .then( (response) => {
       if (response.status !== 200) {
         throw new Error("Error code: ", response.status);
       }
       return response.json()
-      .then( (data) => {
-        console.log(data);
-        // that.setState({ person: data.person });
+      .then( (result) => {
+        let mydateplans = this.state.mydateplans;
+        mydateplans = result;
+        this.setState({mydateplans: mydateplans});
       }, (reject) => {
         console.error("Fetch rejected: ", reject);
       })
@@ -58,7 +59,33 @@ class HomePage extends Component {
   }
 
   getDatePlans() {
-    let url = "http://localhost:8080/api/plans/plan_user/"
+    let url = "http://localhost:8080/api/users/user_plan/"
+    url = url.concat(Auth.getUserID())
+    fetch(url)
+    .then( (response) => {
+      console.log(response);
+      if (response.status !== 200) {
+        throw new Error("Error code: ", response.status);
+      }
+
+      return response.json()
+      .then( (result) => {
+        let dateplans = this.state.dateplans;
+        dateplans = result;
+        this.setState({dateplans: dateplans});
+      }, (reject) => {
+        console.error("Fetch rejected: ", reject);
+      })
+    }, (reject) => {
+      console.error("Fetch rejected: ", reject)
+    })
+    .catch( (err) => {
+      console.error("Fetch in Homepage.jsx failed: ", err)
+    })
+  }
+
+  getEvents() {
+    let url = "http://localhost:8080/api/events/event_user/"
     url = url.concat(Auth.getUserID())
     fetch(url)
     .then( (response) => {
@@ -67,9 +94,9 @@ class HomePage extends Component {
       }
       return response.json()
       .then( (result) => {
-        let datePlans = this.state.datePlans;
-        datePlans = result;
-        this.setState({dateplans: datePlans});
+        let myevents = this.state.myevents;
+        myevents = result;
+        this.setState({myevents: myevents});
 
       }, (reject) => {
         console.error("Fetch rejected: ", reject);
@@ -86,8 +113,10 @@ class HomePage extends Component {
 
     //this.getAllUsersReact();
     this.getDatePlans();
+    this.getMyDatePlans();
     Auth.getUserID();
     Auth.getUserName();
+    this.getEvents();
   }
 
   render() {
@@ -111,11 +140,11 @@ class HomePage extends Component {
               <TableBody
                 displayRowCheckbox={this.state.showCheckBoxes}>
 
-              {this.state.events.map( (event) => {
-                <TableRow>
-                  <TableRowColumn className="tableCellStyle">Casey</TableRowColumn>
-                  <TableRowColumn className="tableCellStyle">The Park</TableRowColumn>
-                  <TableRowColumn className="tableCellStyle">June 2 2017 12:00pm</TableRowColumn>
+              {this.state.myevents.map( (event) => {
+                return <TableRow>
+                  <TableRowColumn className="tableCellStyle">{event.eventName}</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">{event.name}</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">{event.date}</TableRowColumn>
                 </TableRow>
               })}
 
@@ -131,6 +160,12 @@ class HomePage extends Component {
           <div className="sectionTitle">My Date Plans</div>
           <div className="datePlanList">
             <MobileTearSheet>
+              <List>
+                {this.state.mydateplans.map( (mydateplan) => {
+                  return <div key={mydateplan.id}><ListItem primaryText={mydateplan.name} /><Divider /></div>
+                })}
+              </List>
+
               <List>
                 {this.state.dateplans.map( (dateplan) => {
                   return <div key={dateplan.id}><ListItem primaryText={dateplan.name} /><Divider /></div>

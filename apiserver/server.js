@@ -30,6 +30,7 @@ const usersRoutes = require("./routes/users");
 const itemsRoutes = require("./routes/items");
 const plansRoutes = require("./routes/plans");
 const categoriesRoutes = require("./routes/categories");
+const eventsRoutes = require("./routes/events");
 const authRoutes = require('./routes/auth');
 //const apiRoutes = require('./routes/api');
 
@@ -84,6 +85,7 @@ app.use("/api/users", usersRoutes(knex));
 app.use("/api/items", itemsRoutes(knex));
 app.use("/api/plans", plansRoutes(knex));
 app.use("/api/categories", categoriesRoutes(knex));
+app.use("/api/events", eventsRoutes(knex));
 
 
 // Home page
