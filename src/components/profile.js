@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/profile.css';
 import ProfileForm from './profileForm.js';
+import Auth from '../modules/Auth';
+
 
 
 class Profile extends Component {
@@ -22,12 +24,12 @@ class Profile extends Component {
   }
 
   getUserInfo = () => {
-    let ten = 10;
-    let id = ten.toString();
+    // let ten = 10;
+    // let id = ten.toString();
     //let that = this;
     let url = 'http://localhost:8080/api/users/'
 
-    fetch(url.concat(id))
+    fetch(url.concat(Auth.getUserID()))
   // getUserInfo(userId) {
   //   let id = userId.toString();
   //   let that = this;

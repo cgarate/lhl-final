@@ -44,7 +44,6 @@ class SignUpPage extends React.Component {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-
         // change the component-container state
         this.setState({
           errors: {}
@@ -58,6 +57,7 @@ class SignUpPage extends React.Component {
 
       } else {
         // failure
+
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
 

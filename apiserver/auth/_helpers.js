@@ -23,7 +23,9 @@ const comparePass = ( userPassword, databasePassword) => {
 function createUser(req, res) {
   // check form values are correct.
   return handleErrorsSignup(req)
+  
   .then(() => {
+   
     // create the hash out of the password submitted by the user.
     const salt = bcrypt.genSaltSync();
     const hash = bcrypt.hashSync(req.body.password, salt);

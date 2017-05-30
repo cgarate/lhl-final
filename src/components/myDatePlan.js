@@ -151,7 +151,7 @@ class MyDatePlan extends Component {
       outputDatePlans = (
         <Table
           fixedHeader={true}
-          height="200px"
+          height="300px"
         >
           <TableHeader
             displaySelectAll={this.state.showCheckBoxes}

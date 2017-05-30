@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import '../styles/createDatePlan.css';
+import Auth from '../modules/Auth';
 // import '../styles/materialize.css';
 
 class CreateDatePlan extends Component {
@@ -28,26 +29,57 @@ class CreateDatePlan extends Component {
   saveDatePlan = () => {
     let datePlanName = document.getElementById('createDatePlanName');
     let datePlanDesc = document.getElementById('createDatePlanDesc');
+    let datePlanItems = window.getAllPlanItems();
     if (datePlanName.value === "" || datePlanDesc.value === "") {
       window.alertValidation();
       return;
     }
-    let datePlanUser = 115;
-    console.log("user:", datePlanUser);
-    var test = window.dataTest();
-    console.log("name: ", datePlanName.value);
-    console.log("desc: ", datePlanDesc.value);
-    console.log("data: ", test);
 
-    // create a string for an HTTP body message
-    const name = encodeURIComponent(datePlanName.value);
-    const description = encodeURIComponent(datePlanDesc.value);
-    const owner_id = encodeURIComponent(datePlanUser);
-    const formData = `name=${name}&description=${description}&owner_id=${owner_id}`;
+    let sanitizedItems = datePlanItems.map( item => {
+      let itemObj = {}
 
+      if (item.name) {
+        itemObj.name = item.name;
+      }
+
+      if (item.formatted_phone_number) {
+        itemObj.phone = item.formatted_phone_number;
+      }
+
+      if(item.formatted_address) {
+        itemObj.street_address = item.formatted_address;
+      }
+
+      if(item.url) {
+        itemObj.website = item.url;
+      }
+      
+      return itemObj;
+    });
+
+    // const name = encodeURIComponent(datePlanName.value);
+    // const description = encodeURIComponent(datePlanDesc.value);
+    // const owner_id = encodeURIComponent(Auth.getUserID());
+    const formData = {
+      plans: {
+        name: datePlanName.value,
+        description: datePlanDesc.value
+      },
+      items: sanitizedItems
+    };
+    // formData.items = [];
+    // formData.plans = {};
+    // formData.items = window.getAllPlanItems();
+    // formData.plans.name = datePlanName;
+    // formData.plans.description = datePlanDesc;
+    formData.plans.owner_id = Auth.getUserID();
+    formData.plans.tod = "evening";
+    console.log("formData", formData);
+    
+    const jsonObj = JSON.stringify(formData);
     const xhr = new XMLHttpRequest();
-    xhr.open('post', 'http://localhost:8080/api/plans/');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.open('post', 'http://localhost:8080/api/plans/plan_items/');
+    xhr.setRequestHeader('Content-type', 'application/json');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
@@ -55,31 +87,7 @@ class CreateDatePlan extends Component {
         console.log("now: ", xhr.response);
       }
     })
-    xhr.send(formData);
-
-    // fetch('http://localhost:8080/api/plans/', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    //   body: JSON.stringify({
-    //     name: datePlanName.value,
-    //     description: datePlanDesc.value,
-    //     owner_id: 10,
-    //     avg_rating: 5,
-    //     likes: 10,
-    //     tod: "night"
-    //   })
-    // })
-    // .then((response) => response.json())
-    // .then((responseJson) => {
-    //   console.log("responseJson: ", responseJson);
-    // })
-    // .catch((error) => {
-    //     console.error(error);
-    //   });
-
+    xhr.send(jsonObj);
 
     datePlanName.value = "";
     datePlanDesc.value = "";
@@ -88,7 +96,6 @@ class CreateDatePlan extends Component {
     window.clearDatePlanItems();
     console.log("name: ", datePlanName.value);
     console.log("desc: ", datePlanDesc.value);
-    console.log("data: ", test);
 
   }
 

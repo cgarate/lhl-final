@@ -404,25 +404,10 @@
         testCell1.innerHTML = aPlace.name;
         testCell2.appendChild(testButton);
 
-        // testData.innerHTML = "hello";
         testRow.appendChild(testCell1);
         testRow.appendChild(testCell2);
 
         document.getElementById('selectedItemsTableBody').appendChild(testRow);
-      }
-
-      function dataTest() {
-        let arr1 = [
-          {
-            id: 1,
-            str: "hello"
-          },
-          {
-            id: 2,
-            str: "hello2"
-          }
-        ]
-        return arr1;
       }
 
       function clearDatePlanItems() {
@@ -433,4 +418,8 @@
 
       function alertValidation() {
         alert("Please enter a Date Plan name, description, and at least one activity to create a plan.");
+      }
+
+      function getAllPlanItems() {
+        return datePlanItems;
       }
