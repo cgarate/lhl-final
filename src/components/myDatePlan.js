@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import Auth from '../modules/Auth';
 import {
   Table,
   TableBody,
@@ -14,8 +8,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/datePlan.css';
 import SingleDatePlan from './singleDatePlan.js';
@@ -31,9 +24,10 @@ class MyDatePlan extends Component {
       showCheckBoxes: false,
       value: 0,
       aSingleDatePlan: [],
-      datePlans: []
+      dateplans: []
     }
     this.getAllDatePlanItemsReact = this.getAllDatePlanItemsReact.bind(this);
+    this.getAllDatePlansForUserReact = this.getAllDatePlansForUserReact.bind(this);
   }
 
 
@@ -64,63 +58,65 @@ class MyDatePlan extends Component {
   }
 
   getAllDatePlansForUserReact() {
-    let ten = 10;
-    let id = ten.toString();
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_user/'
-
-    fetch(url.concat(id))
-  // getAllDatePlansForUserReact(userId) {
-  //   let id = userId.toString();
-  //   let that = this;
-  //   let url = 'http://localhost:8080/api/plans/plan_user/'
-
-  // fetch(url.concat(id))
-    .then(function(response) {
-      if (response.status >= 400) {
+    url = url.concat(Auth.getUserID())
+    fetch(url)
+    .then( (response) => {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
-      return response.json();
+      return response.json()
+      .then( (result) => {
+        let dateplans = this.state.dateplans;
+        dateplans = result;
+        this.setState({dateplans: dateplans});
+      }, (reject) => {
+        console.error("Fetch went wrong: ", reject)
+      });
+    }, (reject) => {
+      console.error("Fetch went wrong: ", reject)
     })
-    .then(function(data) {
-      that.setState({ datePlans: data });
-    });
+
   }
 
   getAllDatePlanItemsReact(planId) {
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
     .then((response) => {
-      if (response.status >= 400) {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
-      return response.json();
+      return response.json()
+      .then((result) => {
+        let items = this.state.aSingleDatePlan;
+        items = result;
+        this.setState({aSingleDatePlan: items});
+      }, (reject) => {
+        console.error("Fetch went wrong: ", reject)
+      });
+    }, (reject) => {
+      console.error("Fetch went wrong: ", reject)
     })
-    .then((data) => {
-      this.setState({aSingleDatePlan: data});
-    });
   }
 
   removeDatePlanReact(planId) {
-    let that = this;
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
     .then((response) => {
-      if (response.status >= 400) {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
       return response.json();
     })
-    .then((data) => {
-      this.setState({aSingleDatePlan: data});
+    .then((results) => {
+      this.setState({aSingleDatePlan: results});
     });
   }
 
-  componentDidMount() {    
-  
+  componentDidMount() {
+
     this.getAllDatePlansForUserReact();
 
     const script1 = document.createElement("script");
@@ -128,23 +124,22 @@ class MyDatePlan extends Component {
     script1.name = "googleMaps";
     script1.async = true;
     document.body.appendChild(script1);
-  
+
 }
 
   render() {
 
-    let myPaddingStyle = {
-      paddingTop: 10,
-      paddingBottom: 10,
-      padding: 100
-    }
+    // let myPaddingStyle = {
+    //   paddingTop: 10,
+    //   paddingBottom: 10,
+    //   padding: 100
+    // }
 
     let outputDatePlans;
-    if (this.state.datePlans != 0) {
+    if (this.state.dateplans !== 0) {
       let theTableRows = [];
-      if(this.state.datePlans) {
-        theTableRows  = this.state.datePlans.map( item => {
-        console.log("plan: ", this.state.datePlans.length);
+      if(this.state.dateplans) {
+        theTableRows  = this.state.dateplans.map( item => {
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
@@ -187,10 +182,10 @@ class MyDatePlan extends Component {
           this.state.datePlans.forEach( item => {
             item.planItems.forEach( singlePlanItem => {
               counter++;
-              theMenuItems.push(<MenuItem value={counter} 
+              theMenuItems.push(<MenuItem value={counter}
                 key={counter}
-                label={singlePlanItem.itemDetails.category} 
-                primaryText={singlePlanItem.itemDetails.category} 
+                label={singlePlanItem.itemDetails.category}
+                primaryText={singlePlanItem.itemDetails.category}
                 onClick={this.loadDatePlanCategory.bind(null, singlePlanItem.itemDetails.category)}
                 onTouchTap={this.props.onTouchTap}/>
               )
@@ -203,7 +198,7 @@ class MyDatePlan extends Component {
           </DropDownMenu>
         )
     }*/
-    
+
     return (
       <div className="datePlanMain">
         <div className="pageTitle">My Date Plans</div>

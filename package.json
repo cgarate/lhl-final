@@ -7,6 +7,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "cors": "^2.8.3",
     "google-map-react": "^0.24.0",
+    "material-auto-rotating-carousel": "^1.4.0",
     "material-ui": "^0.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -18,6 +19,7 @@
     "react-google-maps-loader": "^2.0.2",
     "react-images-uploader": "^1.0.1",
     "react-router-dom": "^4.1.1",
+    "react-swipeable-views": "^0.12.3",
     "react-tap-event-plugin": "^2.0.1",
     "redux-auth": "0.0.5-beta5"
   },

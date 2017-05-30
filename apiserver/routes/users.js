@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const _ = require('underscore-node');
 
 module.exports = (knex) => {
 
@@ -43,6 +44,41 @@ module.exports = (knex) => {
     });
   });
 
+  // insert users_plans.
+  router.post("/user_plan/", (req, res) => {
+    knex("users_plans")
+      .returning('id')
+      .insert({
+        plan_id: req.body.plan_id,
+        user_id: req.body.user_id,
+      }).then( (results) => {
+          res.sendStatus(200);
+      }, (rej) => {
+        res.sendStatus(500);
+      });
+    });
+
+  //Get Users_Plans
+  router.get("/user_plan/:id", (req, res) => {
+    knex
+      .select('plan_id')
+      .where('user_id', "=", req.params.id)
+      .from("users_plans")
+      .then( (results) => {
+        return _.pluck(results, 'plan_id')
+      })
+      .then( (plans) => {
+        return knex.select('*').from('plans').whereIn('id', plans);
+      })
+      .then( (results) => {
+        res.json(results)
+      })
+      .catch( (error) => {
+        console.error(error);
+        res.sendStatus(500);
+      });
+  });
+
   // insert a user.
   router.post("/", (req, res) => {
     let created = new Date();
@@ -56,7 +92,7 @@ module.exports = (knex) => {
         password: req.body.password,
         dob: req.body.dob,
         archived: 0,
-        created_at: created,
+        created_at: created
       }).then( (results) => {
           res.sendStatus(200);
       }, (rej) => {

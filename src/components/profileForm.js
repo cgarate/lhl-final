@@ -33,7 +33,7 @@ class ProfileForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+
     }
     this.saveUser = this.props.saveUser.bind(this);
     this.onChange = this.props.onChange.bind(this);
