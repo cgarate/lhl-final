@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Auth from '../modules/Auth';
 import {
   Table,
   TableBody,
@@ -27,8 +27,10 @@ class DatePlan extends Component {
       aSingleDatePlan: [],
       datePlans: []
     }
+
     this.getAllDatePlanItemsReact = this.getAllDatePlanItemsReact.bind(this);
     this.saveDatePlanToUserReact = this.saveDatePlanToUserReact.bind(this);
+    this.getAllDatePlansReact = this.getAllDatePlansReact.bind(this);
   }
 
 
@@ -51,9 +53,8 @@ class DatePlan extends Component {
 
   saveDatePlanToUserReact = (aPlan) => {
 
-
     const planId = encodeURIComponent(aPlan);
-    const userId = encodeURIComponent(10);
+    const userId = encodeURIComponent(Auth.getUserID());
     const formData = `plan_id=${planId}&user_id=${userId}`;
 
     const xhr = new XMLHttpRequest();
@@ -66,54 +67,51 @@ class DatePlan extends Component {
       }
     })
     xhr.send(formData);
-
-    // let url = 'http://localhost:8080/api/plans/'
-
-    // console.log("weeeee");
-    // fetch(url)
-    // .then(function(response) {
-    //   if (response.status >= 400) {
-    //     throw new Error("Bad response from server");
-    //   }
-    //   return response.json();
-    // })
-    // .then(function(data) {
-    //   console.log(data);
-    // });
   }
 
+
+
   getAllDatePlansReact() {
-    let that = this;
     let url = 'http://localhost:8080/api/plans/'
 
     fetch(url)
-    .then(function(response) {
-      if (response.status >= 400) {
+    .then( (response) => {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
-      return response.json();
+      return response.json()
+      .then( (result) => {
+        let dateplans = this.state.dateplans;
+        dateplans = result;
+        this.setState({datePlans: dateplans});
+      }, (reject) => {
+        console.error("Fetch went wrong: ", reject)
+      });
+    }, (reject) => {
+      console.error("Fetch went wrong: ", reject)
     })
-    .then(function(data) {
-      console.log(data);
-      that.setState({ datePlans: data });
-    });
+
   }
 
   getAllDatePlanItemsReact(planId) {
-    console.log("planId: ", planId);
     let url = 'http://localhost:8080/api/plans/plan_item/'
 
     fetch(url.concat(planId))
     .then((response) => {
-      if (response.status >= 400) {
+      if (response.status !== 200) {
         throw new Error("Bad response from server");
       }
-      return response.json();
+      return response.json()
+      .then((result) => {
+        let items = this.state.aSingleDatePlan;
+        items = result;
+        this.setState({aSingleDatePlan: items});
+      }, (reject) => {
+        console.error("Fetch went wrong: ", reject)
+      });
+    }, (reject) => {
+      console.error("Fetch went wrong: ", reject)
     })
-    .then((data) => {
-      console.log(data);
-      this.setState({aSingleDatePlan: data});
-    });
   }
 
   // checkForScripts = () => {
@@ -155,7 +153,6 @@ class DatePlan extends Component {
 
     //if there are no scripts that match, the load it
     // if (len === 0) {
-      console.log("herehere1");
       const script1 = document.createElement("script");
       script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
       script1.name = "googleMaps";
