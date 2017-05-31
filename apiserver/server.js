@@ -25,6 +25,8 @@ const knexLogger  = require('knex-logger');
 //View middleware
 const partials = require('express-partials');
 
+const fileUpload = require('express-fileupload');
+
 // Separated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const itemsRoutes = require("./routes/items");
@@ -74,10 +76,29 @@ app.use(knexLogger(knex));
 app.set("view engine", "ejs");
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit:'5mb' }));
 
 app.use(express.static("/public"));
+
+// fileupload route
+app.use(fileUpload());
+app.post('/upload', function(req, res) {
+
+  if (!req.files) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "imageFile") is used to retrieve the uploaded file
+  let imageFile = req.files.imageFile;
+  let userImageNewFilenamePath = "public/img/" + req.files.imageFile.name;
+  // Use the mv() method to place the file somewhere on your server
+  imageFile.mv(userImageNewFilenamePath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send('File uploaded!');
+  });
+});
 
 // Mount all resource routes
 app.use("/api/auth", authRoutes);
@@ -86,7 +107,6 @@ app.use("/api/items", itemsRoutes(knex));
 app.use("/api/plans", plansRoutes(knex));
 app.use("/api/categories", categoriesRoutes(knex));
 app.use("/api/events", eventsRoutes(knex));
-
 
 // Home page
 app.get("/", (req, res) => {
