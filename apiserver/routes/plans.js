@@ -69,6 +69,7 @@ module.exports = (knex) => {
     //Insert new plan, its items (3 tables)
     router.post("/plan_items/", (req, res) => {
       console.log("req", req.body);
+      var newPlanId;
       
       knex("plans")
         .returning('id')
@@ -83,6 +84,7 @@ module.exports = (knex) => {
         .then( (results) => {
           console.log("here2");
           let planID = JSON.parse(results);
+          newPlanId = planID;
           knex.batchInsert("items", req.body.items)
           .returning('id')
           .then( (ids) => {
@@ -92,8 +94,8 @@ module.exports = (knex) => {
             })
             knex.batchInsert("plans_items", plans_items)
             .returning('id')
-            .then( () => {
-              res.sendStatus(200);
+            .then( (id) => {
+              res.json(newPlanId);
             }, (reject) => {
               console.error("Something went wrong after inserting plans_items. ", reject);
             })

@@ -133,7 +133,7 @@ class ProfileForm extends Component {
               </TableBody>
             </Table>
           {/*</form>*/}
-          {/*<ImagesUploader
+          <ImagesUploader
                 url="http://localhost:9090/notmultiple"
                 optimisticPreviews
                 multiple={false}
@@ -143,7 +143,7 @@ class ProfileForm extends Component {
                     }
                 }}
                 label="Upload a picture"
-                />*/}
+                />
         </div>
       </div>
     );

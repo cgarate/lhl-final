@@ -58,6 +58,24 @@ module.exports = (knex) => {
       });
     });
 
+  // "Delete" a user_plan.
+    router.delete("/", (req, res) => {
+      knex("users_plans")
+      .where({
+        user_id: req.body.user_id,
+        plan_id: req.body.plan_id
+      })
+      .del()
+      .then((result) => {
+        res.sendStatus(200);
+      }, (reject) => {
+        console.log(reject);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    });
+
   //Get Users_Plans
   router.get("/user_plan/:id", (req, res) => {
     knex

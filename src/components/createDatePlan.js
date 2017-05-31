@@ -53,7 +53,11 @@ class CreateDatePlan extends Component {
       if(item.url) {
         itemObj.website = item.url;
       }
-      
+
+      if(item.place_id) {
+        itemObj.place_id = item.place_id
+      }
+
       return itemObj;
     });
 
@@ -85,6 +89,7 @@ class CreateDatePlan extends Component {
       if (xhr.status === 200) {
         //xhr.response;
         console.log("now: ", xhr.response);
+        this.savePlanToUser(xhr.response);
       }
     })
     xhr.send(jsonObj);
@@ -97,6 +102,27 @@ class CreateDatePlan extends Component {
     console.log("name: ", datePlanName.value);
     console.log("desc: ", datePlanDesc.value);
 
+  }
+
+  savePlanToUser = (planId) => {
+
+    const formData = {
+      plan_id: planId, 
+      user_id: Auth.getUserID()
+    };
+
+    const jsonObj = JSON.stringify(formData);
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'http://localhost:8080/api/users/user_plan/');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        //xhr.response;
+        console.log("now: ", xhr.response);
+      }
+    })
+    xhr.send(jsonObj);
   }
 
   clearDatePlan = () => {
@@ -113,7 +139,7 @@ class CreateDatePlan extends Component {
 
       console.log("herehere1");
       const script1 = document.createElement("script");
-      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
       script1.name = "googleMaps";
       script1.async = true;
       document.body.appendChild(script1);

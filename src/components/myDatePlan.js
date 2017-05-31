@@ -28,6 +28,7 @@ class MyDatePlan extends Component {
     }
     this.getAllDatePlanItemsReact = this.getAllDatePlanItemsReact.bind(this);
     this.getAllDatePlansForUserReact = this.getAllDatePlansForUserReact.bind(this);
+    this.locateGeoCoor = this.locateGeoCoor.bind(this);
   }
 
 
@@ -57,8 +58,12 @@ class MyDatePlan extends Component {
     }
   }
 
+  locateGeoCoor = (place) => {
+    window.locateGeoPosition(place)
+  }
+
   getAllDatePlansForUserReact() {
-    let url = 'http://localhost:8080/api/plans/plan_user/'
+    let url = 'http://localhost:8080/api/users/user_plan/'
     url = url.concat(Auth.getUserID())
     fetch(url)
     .then( (response) => {
@@ -91,6 +96,7 @@ class MyDatePlan extends Component {
       .then((result) => {
         let items = this.state.aSingleDatePlan;
         items = result;
+        console.log("itemsAcitivites", items);
         this.setState({aSingleDatePlan: items});
       }, (reject) => {
         console.error("Fetch went wrong: ", reject)
@@ -100,19 +106,34 @@ class MyDatePlan extends Component {
     })
   }
 
-  removeDatePlanReact(planId) {
-    let url = 'http://localhost:8080/api/plans/plan_item/'
+  removeDatePlanReact = (itemId) => {
 
-    fetch(url.concat(planId))
-    .then((response) => {
-      if (response.status !== 200) {
-        throw new Error("Bad response from server");
+    var formData = {
+      plan_id: itemId,
+      user_id: Auth.getUserID()
+    }
+    var plansState = this.state.dateplans;
+
+    const jsonObj = JSON.stringify(formData);
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'http://localhost:8080/api/users/?_method=DELETE');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        xhr.response;
+        console.log("response: ", xhr.response);
+        
+        for (var i in plansState) {
+          if (plansState[i].id === itemId)
+            plansState.splice(i, 1);
+            this.setState({
+              plansState
+            });
+        }
       }
-      return response.json();
     })
-    .then((results) => {
-      this.setState({aSingleDatePlan: results});
-    });
+    xhr.send(jsonObj);
   }
 
   componentDidMount() {
@@ -120,7 +141,7 @@ class MyDatePlan extends Component {
     this.getAllDatePlansForUserReact();
 
     const script1 = document.createElement("script");
-    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
     script1.name = "googleMaps";
     script1.async = true;
     document.body.appendChild(script1);
@@ -214,9 +235,10 @@ class MyDatePlan extends Component {
         <div className="datePlanActivitiesSection">
           <div className="sectionTitle">Date Plan Activities</div>
           <div className="datePlanList">
-            <SingleDatePlan aDatePlan={this.state.aSingleDatePlan}/>
+            <SingleDatePlan aDatePlan={this.state.aSingleDatePlan} locatePlace={this.locateGeoCoor}/>
           </div>
         </div>
+        <RaisedButton label="Locate" primary={true} onClick={this.locateGeoCoor.bind(null)}/>
         <div className="datePlanMapSection">
           <div className="sectionTitle">Map</div>
           <div className="datePlanMap">

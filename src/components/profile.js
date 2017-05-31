@@ -70,10 +70,10 @@ class Profile extends Component {
     const e_last_name = encodeURIComponent(this.state.userData.last_name);
     const e_username = encodeURIComponent(this.state.userData.username);
     const e_email = encodeURIComponent(this.state.userData.email);
-    const e_dob = encodeURIComponent(this.state.userData.dob);
+    // const e_dob = encodeURIComponent(this.state.userData.dob);
     const e_bio = encodeURIComponent(this.state.userData.bio);
     const e_id = encodeURIComponent(this.state.userData.id);
-    const formData = `id=${e_id}&first_name=${e_first_name}&last_name=${e_last_name}&username=${e_username}&email=${e_email}&dob=${e_dob}&bio=${e_bio}`;
+    const formData = `id=${e_id}&first_name=${e_first_name}&last_name=${e_last_name}&username=${e_username}&email=${e_email}&bio=${e_bio}`;
     
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/users/update/?_method=PUT');

@@ -305,6 +305,11 @@
         datePlanItems.push(newPlace);
         console.log("dateplanitems1.5: ", datePlanItems);
 
+        console.log("lng: ", newPlace.geometry.location.toJSON().lng);
+        console.log("lng: ", typeof newPlace.geometry.location.toJSON().lng);
+        console.log("lat: ", newPlace.geometry.location.toJSON().lat);
+        console.log("lat: ", typeof newPlace.geometry.location.toJSON().lat);
+
         const tableRow = document.createElement("tr");
         tableRow.setAttribute("id", "testId");
         const cellName = document.createElement("td");
@@ -370,45 +375,45 @@
         newInfoWindow.close();
       }
 
-      function buttonTest() {
+      // function buttonTest() {
 
-        // console.log("hi dawg");
-        // const row = document.createElement("TableRow");
-        // const cell1 = document.createElement("TableRowColumn");
-        // cell1.innerHTML = "Paragraph changed!";
-        // row.appendChild(cell1);
-        // console.log("row", row);
-        // console.log("cell", cell1);
+      //   // console.log("hi dawg");
+      //   // const row = document.createElement("TableRow");
+      //   // const cell1 = document.createElement("TableRowColumn");
+      //   // cell1.innerHTML = "Paragraph changed!";
+      //   // row.appendChild(cell1);
+      //   // console.log("row", row);
+      //   // console.log("cell", cell1);
 
-        // document.getElementById('createDatePlanTableBody').appendChild(row);
-        // document.body.appendChild(row);
+      //   // document.getElementById('createDatePlanTableBody').appendChild(row);
+      //   // document.body.appendChild(row);
 
-        var aPlace = {
-          name: "Woooo Baby!"
-        }
+      //   var aPlace = {
+      //     name: "Woooo Baby!"
+      //   }
 
-        const testRow = document.createElement("tr");
-        testRow.setAttribute("id", "testId");
-        const testCell1 = document.createElement("td");
-        const testCell2 = document.createElement("td");
-        const testButton = document.createElement("BUTTON");
-        testButton.onclick = function () {
-          var buttonParent = this.parentNode;
-          var cellParent = buttonParent.parentNode;
-          var parent = document.getElementById("selectedItemsTableBody");
-          // var child = document.getElementById("testId");
-          parent.removeChild(cellParent);
+      //   const testRow = document.createElement("tr");
+      //   testRow.setAttribute("id", "testId");
+      //   const testCell1 = document.createElement("td");
+      //   const testCell2 = document.createElement("td");
+      //   const testButton = document.createElement("BUTTON");
+      //   testButton.onclick = function () {
+      //     var buttonParent = this.parentNode;
+      //     var cellParent = buttonParent.parentNode;
+      //     var parent = document.getElementById("selectedItemsTableBody");
+      //     // var child = document.getElementById("testId");
+      //     parent.removeChild(cellParent);
           
-        };
+      //   };
 
-        testCell1.innerHTML = aPlace.name;
-        testCell2.appendChild(testButton);
+      //   testCell1.innerHTML = aPlace.name;
+      //   testCell2.appendChild(testButton);
 
-        testRow.appendChild(testCell1);
-        testRow.appendChild(testCell2);
+      //   testRow.appendChild(testCell1);
+      //   testRow.appendChild(testCell2);
 
-        document.getElementById('selectedItemsTableBody').appendChild(testRow);
-      }
+      //   document.getElementById('selectedItemsTableBody').appendChild(testRow);
+      // }
 
       function clearDatePlanItems() {
         console.log("allDatePlanItems", datePlanItems);
@@ -422,4 +427,47 @@
 
       function getAllPlanItems() {
         return datePlanItems;
+      }
+
+      function locateGeoPosition(place) {
+        // var myLatLng = {lat: coordinates.lat,  lng: coordinates.lng}
+
+        var geocoder = new google.maps.Geocoder;
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          // zoom: 12,
+          // center: myLatLng
+        });
+
+        // var marker = new google.maps.Marker({
+        //   // position: myLatLng,
+        //   map: map,
+        //   title: 'Hello World!'
+        // });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: "hello"
+        });
+        console.log("placeId", place.place_id);
+        geocoder.geocode({'placeId': place.place_id}, function(results, status) {
+          if (status === 'OK') {
+            if (results[0]) {
+              map.setZoom(11);
+              map.setCenter(results[0].geometry.location);
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+              infowindow.setContent(results[0].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        
+
+        infowindow.open(map, marker);
+        });
       }
