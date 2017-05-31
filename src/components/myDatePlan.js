@@ -238,7 +238,6 @@ class MyDatePlan extends Component {
             <SingleDatePlan aDatePlan={this.state.aSingleDatePlan} locatePlace={this.locateGeoCoor}/>
           </div>
         </div>
-        <RaisedButton label="Locate" primary={true} onClick={this.locateGeoCoor.bind(null)}/>
         <div className="datePlanMapSection">
           <div className="sectionTitle">Map</div>
           <div className="datePlanMap">

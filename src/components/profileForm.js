@@ -14,17 +14,13 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-
 import '../styles/profile.css';
 import DatePicker from 'material-ui/DatePicker';
-import TextField from 'material-ui/TextField';
-import ImagesUploader from 'react-images-uploader';
-import 'react-images-uploader/styles.css';
-// import 'react-images-uploader/font.css';
+import TextField from 'material-ui/TextField'; 
+import ImageUpload from './imageUploader.js';
 
 
 
@@ -37,6 +33,15 @@ class ProfileForm extends Component {
     }
     this.saveUser = this.props.saveUser.bind(this);
     this.onChange = this.props.onChange.bind(this);
+    this.saveURL = this.saveURL.bind(this);
+    this.saveImage = this.saveURL.bind(this);
+  }
+
+  saveURL = () => {
+    var newImageURL = document.getElementById("newImage").value;
+    console.log("newImage: ", newImageURL);
+    var ret = newImageURL.replace("C:\\fakepath\\", "");
+    this.props.saveImage(ret);
   }
 
   render() {
@@ -133,17 +138,11 @@ class ProfileForm extends Component {
               </TableBody>
             </Table>
           {/*</form>*/}
-          <ImagesUploader
-                url="http://localhost:9090/notmultiple"
-                optimisticPreviews
-                multiple={false}
-                onLoadEnd={(err) => {
-                    if (err) {
-                        console.error(err);
-                    }
-                }}
-                label="Upload a picture"
-                />
+          <form method="post" encType="multipart/form-data" action="http://localhost:8080/upload">
+            <input id="newImage" type="file" name="imageFile" size="40" onChange={this.saveURL.bind(this)}/>
+            <input type="submit" value="Upload" />
+          </form>
+          {/*<ImageUpload />*/}
         </div>
       </div>
     );

@@ -14,6 +14,7 @@ class Profile extends Component {
         first_name: "",
         last_name: "",
         username: "",
+        image: "",
         email: "",
         dob: "",
         bio: "",
@@ -69,11 +70,12 @@ class Profile extends Component {
     const e_first_name = encodeURIComponent(this.state.userData.first_name);
     const e_last_name = encodeURIComponent(this.state.userData.last_name);
     const e_username = encodeURIComponent(this.state.userData.username);
+    const e_image = encodeURIComponent(this.state.userData.image);
     const e_email = encodeURIComponent(this.state.userData.email);
     // const e_dob = encodeURIComponent(this.state.userData.dob);
     const e_bio = encodeURIComponent(this.state.userData.bio);
     const e_id = encodeURIComponent(this.state.userData.id);
-    const formData = `id=${e_id}&first_name=${e_first_name}&last_name=${e_last_name}&username=${e_username}&email=${e_email}&bio=${e_bio}`;
+    const formData = `id=${e_id}&first_name=${e_first_name}&last_name=${e_last_name}&username=${e_username}&email=${e_email}&image=${e_image}&bio=${e_bio}`;
     
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/users/update/?_method=PUT');
@@ -87,6 +89,11 @@ class Profile extends Component {
     })
     xhr.send(formData);
 
+  }
+
+  saveUserImage = (imageURL) => {
+    this.state.userData.image = imageURL;
+    this.saveUserInfo();
   }
 
   changeUser(event) {
@@ -111,7 +118,7 @@ class Profile extends Component {
       <div className="profileMainSection">
         <div className="pageTitle">Profile</div>
         <div>
-          <ProfileForm userInfo={this.state.userData} onChange={this.changeUser} saveUser={this.saveUserInfo.bind(this)}/>
+          <ProfileForm userInfo={this.state.userData} onChange={this.changeUser} saveImage={this.saveUserImage.bind(this)} saveUser={this.saveUserInfo.bind(this)}/>
         </div>
       </div>
     );

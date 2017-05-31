@@ -145,6 +145,7 @@ module.exports = (knex) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
+        image: req.body.image,
         username: req.body.username,
         password: req.body.password,
         dob: req.body.dob,
