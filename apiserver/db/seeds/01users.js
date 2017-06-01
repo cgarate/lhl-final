@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
     return knex('users').del()
       .then(function() {
         return Promise.all([
-          knex('users').insert([{archived: 0, first_name: 'William', last_name: 'Clinton', password: 'password', username: 'mr.president', email: 'big_bill@hotmail.com', dob: '1646-08-19', image: './images/bill-clinton.jpg', bio: 'I am a rocket scientist. I’ve appeared on the cover of GQ – twice. And after mastering Italian, I became an international super spy. Right now, I’m yachting my way across the Caribbean, stealing top-secret information, and sipping martinis… shaken, not stirred.', created_at: knex.raw('now()'), updated_at: knex.raw('now()') }]),
+          knex('users').insert([{archived: 0, first_name: 'William', last_name: 'Clinton', password: 'password', username: 'mr.president', email: 'big_bill@hotmail.com', dob: '1646-08-19', image: './images/bill-clinton.jpg', bio: 'Kitesurfing in Morocco. Hiking a summit trail. Playing my guitar with my closest friends. It’s not a proper weekend if your heart isn’t beating a little faster, right? Monday through Friday, I manage my business, but when the weekend rolls around… it’s time to play. Maybe you can join… message me, and let’s talk.', created_at: knex.raw('now()'), updated_at: knex.raw('now()') }]),
 
           knex('users').insert([{archived: 0, first_name: 'Chris', last_name: 'Bacon', password: 'password', username: 'chris.p.bacon', email: 'cbacon@gmail.com', dob: '1990-12-20', image: './images/chris-p-bacon.jpg', bio: 'Surfer. Tech entrepreneur. Frequent traveler. By day I run my investment company. But when the market closes, the suit comes off and it’s time for some fun.', created_at: knex.raw('now()'), updated_at: knex.raw('now()') }]),
 
@@ -33,7 +33,7 @@ exports.seed = function(knex, Promise) {
 
           knex('users').insert([{archived: 0, first_name: 'Alex', last_name: 'Hamilton', password: 'password', username: 'Ahamster', email: 'alex-hammy@gmail.com', dob: '1985-03-21', image: './images/alex-hamilton.jpg', bio: 'Monday through Friday, I’m a general contractor. It’s rewarding to solve real-world problems and see big vacant lots turn into shiny new homes. But my favorite part is driving past an old job site and seeing a happy family playing in the front yard.', created_at: knex.raw('now()'), updated_at: knex.raw('now()') }]),
 
-          knex('users').insert([{archived: 0, first_name: 'The Juan', last_name: 'N\'Only', password: 'password', username: 'juanAndOnly', email: 'juan-and-only-1@gmail.com', dob: '1992-10-31', image: './images/juan-n-only.png', bio: 'Kitesurfing in Morocco. Hiking a summit trail. Playing my guitar with my closest friends. It’s not a proper weekend if your heart isn’t beating a little faster, right? Monday through Friday, I manage my business, but when the weekend rolls around… it’s time to play. Maybe you can join… message me, and let’s talk.', created_at: knex.raw('now()'), updated_at: knex.raw('now()') }])
+          knex('users').insert([{archived: 0, first_name: 'The Juan', last_name: 'N\'Only', password: 'password', username: 'juanAndOnly', email: 'juan-and-only-1@gmail.com', dob: '1992-10-31', image: './images/juan-n-only.png', bio: 'I am a rocket scientist. I’ve appeared on the cover of GQ – twice. And after mastering Italian, I became an international super spy. Right now, I’m yachting my way across the Caribbean, stealing top-secret information, and sipping martinis… shaken, not stirred.', created_at: knex.raw('now()'), updated_at: knex.raw('now()') }])
         ]);
       });
     }
