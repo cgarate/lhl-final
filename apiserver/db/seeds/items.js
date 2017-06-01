@@ -1,58 +1,539 @@
 exports.seed = function(knex, Promise) {
+  return seedItemsTable()
 
-  const faker = require('faker');
-  return knex('plans_items').del();
-  return knex('items').del()
-    .then(function () {
-      return Promise.all([
+  function seedItemsTable() {
+    return knex('items').del()
+      .then(function() {
+        return Promise.all([
+          knex('items').insert(
+            {
+            name: 'Scotiabank Theatre',
+            latitude: '43.6489145',
+            longitude: '-79.3934287',
+            place_id: "ChIJ6WXdCtA0K4gR5wmJfTBGe48",
+            phone: '(416) 368-5600',
+            street_address: '259 Richmond St W',
+            city: 'Toronto',
+            postal_code: 'M5V 3M6',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Friday / 9:00 to 23:00 hrs",
+            website: 'www.cineplex.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Charidise',
+            latitude: '43.655954',
+            longitude: '-79.395396',
+            place_id: "ChIJKQWpa8Y0K4gRb2pJS_AQmno",
+            phone: '(647) 351-6555',
+            street_address: '27 Baldwin St',
+            city: 'Toronto',
+            postal_code: 'M5T 1L1',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday / 11:00 to 24:00 hrs",
+            website: 'www.charidise.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Greg\'s Ice Cream',
+            latitude: '43.6364343',
+            longitude: '-79.3606599',
+            place_id: "ChIJgQH1URdTV0ARo_qfR20AQCM",
+            phone: '(416) 961-4734',
+            street_address: '32 Gristmill Lane',
+            city: 'Toronto',
+            postal_code: 'M5A 3R6',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Friday / 12:00 to 16:00 hrs",
+            website: '',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Cherry Beach',
+            latitude: '43.6363749',
+            longitude: '-79.347442',
+            place_id: "ChIJvVikcQLL1IkRafuhKhOaN98",
+            phone: '',
+            street_address: '',
+            city: 'Toronto',
+            postal_code: '',
+            province: 'ON',
+            country: 'Canada',
+            hours: "",
+            website: '',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Fancy Franks Gourmet Hot Dogs',
+            latitude: '43.6576403',
+            longitude: '-79.4048464',
+            place_id: "ChIJP2os2ME0K4gRAaoCvQYkoq8",
+            phone: '(416) 920-3647',
+            street_address: '326 College St',
+            city: 'Toronto',
+            postal_code: 'M5T 1S3',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 11:30 - 23:00 hrs",
+            website: 'fancyfranks.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Rogers Centre',
+            latitude: '43.6414417',
+            longitude: '-79.3915472',
+            place_id: "ChIJUUpqttc0K4gRBRQL_vayEOI",
+            phone: '(416) 341-1000',
+            street_address: '1 Blue Jays Way',
+            city: 'Toronto',
+            postal_code: 'M5V 1J1',
+            province: 'ON',
+            country: 'Canada',
+            hours: "",
+            website: 'rogerscentre.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Local Public Eatery',
+            latitude: '43.6384713',
+            longitude: '-79.4214055',
+            place_id: "ChIJ3SpxhwM1K4gRGJucBXQA6yU",
+            phone: '(416) 901-8351',
+            street_address: '100-171 E Liberty St',
+            city: 'Toronto',
+            postal_code: 'M6K 3P6',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 11:00 - 24:00 hrs",
+            website: 'locallibertyvillage.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'BMO Field',
+            latitude: '43.6332265',
+            longitude: '-79.4207562',
+            place_id: "ChIJUUPv9gU1K4gRLQy397NpIZ0",
+            phone: '(416) 815-5982',
+            street_address: '170 Princes\' Blvd',
+            city: 'Toronto',
+            postal_code: 'M6K 3C3',
+            province: 'ON',
+            country: 'Canada',
+            hours: "",
+            website: 'bmofield.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Canoe Landing',
+            latitude: '43.6391704',
+            longitude: '-79.3988448',
+            place_id: "ChIJL0HRKCc1K4gRQ1_21lk_ucM",
+            phone: '(416) 338-4386',
+            street_address: '95 Fort York Blvd',
+            city: 'Toronto',
+            postal_code: 'M5V 3Y2',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 8:00 - 23:00 hrs",
+            website: 'toronto.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+          knex('items').insert(
+            {
+            name: 'Purina PawsWay',
+            latitude: '43.6388125',
+            longitude: '-79.3873321',
+            place_id: "ChIJmezTFio1K4gRkJJqIEbKQZ8",
+            phone: '(416) 360-7297',
+            street_address: '245 Queens Quay W',
+            city: 'Toronto',
+            postal_code: 'M5J 2K9',
+            province: 'ON',
+            country: 'Canada',
+            hours: "",
+            website: 'pawsway.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
         knex('items').insert(
           {
-            name: faker.company.companyName(),
-            latitude: faker.address.latitude(),
-            longitude: faker.address.longitude(),
-            phone: faker.phone.phoneNumber(),
-            street_address: faker.address.streetAddress(),
-            city: faker.address.city(),
-            postal_code: faker.address.zipCode(),
-            province: faker.address.stateAbbr(),
-            country: faker.address.country(),
+            name: 'Saving Gigi',
+            latitude: '43.6604282',
+            longitude: '-79.4223036',
+            place_id: "ChIJn82_TvU0K4gRTxbQAv9WZ8U",
+            phone: '(416) 531-1538',
+            street_address: '859 Bloor St W',
+            city: 'Toronto',
+            postal_code: 'M6G1M5',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Friday / 8:00 to 20:00 hrs",
+            website: '',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Christie Pits Park',
+            latitude: '43.6645927',
+            longitude: '-79.42287',
+            place_id: "ChIJ8f_In4s0K4gRRK-KutieqXA",
+            phone: '416-338-4386',
+            street_address: '750 Bloor St W',
+            city: 'Toronto',
+            postal_code: 'M6G 3K4',
+            province: 'ON',
+            country: 'Canada',
             hours: "Monday-Friday / 9:00 to 23:00 hrs",
-            website: faker.internet.url(),
-            created_at: knex.raw('now()')
+            website: 'www.toronto.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Artscape Wychwood Barns',
+            latitude: '43.6799863',
+            longitude: '-79.4262517',
+            place_id: "ChIJg1POdoA0K4gRYGt--QSSC7Y",
+            phone: '(416) 653-3520',
+            street_address: '601 Christie St',
+            city: 'Toronto',
+            postal_code: 'M6G 4C7',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Friday / 9:00 to 23:00 hrs",
+            website: 'www.artscapewychwoodbarns.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'AGO- Art Gallery of Ontario',
+            latitude: '43.6536066',
+            longitude: '-79.3947064',
+            place_id: "ChIJvRlT7cU0K4gRr0bg7VV3J9o",
+            phone: '(416) 979-6648',
+            street_address: '317 Dundas St W',
+            city: 'Toronto',
+            postal_code: 'M5T 1G4',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Thursday 19:00 - 23:30 hrs",
+            website: 'www.ago.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'The Fermenting Cellar',
+            latitude: '43.6497091',
+            longitude: '-79.3620623',
+            place_id: "ChIJv1iSxz3L1IkRK25qUP6txY0",
+            phone: '(416) 203-2363',
+            street_address: '28 Distillery Lane',
+            city: 'Toronto',
+            postal_code: 'M5A 3C4',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Thursday 17:30 - 21:30 hrs",
+            website: 'www.distilleryevents.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
           }),
 
         knex('items').insert(
           {
-            name: faker.company.companyName(),
-            latitude: faker.address.latitude(),
-            longitude: faker.address.longitude(),
-            phone: faker.phone.phoneNumber(),
-            street_address: faker.address.streetAddress(),
-            city: faker.address.city(),
-            postal_code: faker.address.zipCode(),
-            province: faker.address.stateAbbr(),
-            country: faker.address.country(),
-            hours: "Monday-Friday / 9:00 to 23:00 hrs",
-            website: faker.internet.url(),
-            created_at: knex.raw('now()')
+            name: 'The Addisons Residence',
+            latitude: '43.6438341',
+            longitude: '-79.3995757',
+            place_id: "ChIJYZvr1N40K4gRCzM3yexPozw",
+            phone: '(416) 260-9393',
+            street_address: '456 Wellington St W',
+            city: 'Toronto',
+            postal_code: 'M5V 1E3',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Thursday - Saturday 17:00 - 2:00 hrs",
+            website: 'www.theaddisonsto.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
           }),
-
         knex('items').insert(
           {
-            name: faker.company.companyName(),
-            latitude: faker.address.latitude(),
-            longitude: faker.address.longitude(),
-            phone: faker.phone.phoneNumber(),
-            street_address: faker.address.streetAddress(),
-            city: faker.address.city(),
-            postal_code: faker.address.zipCode(),
-            province: faker.address.stateAbbr(),
-            country: faker.address.country(),
-            hours: "Monday-Friday / 9:00 to 23:00 hrs",
-            website: faker.internet.url(),
-            created_at: knex.raw('now()')
-          })
-
-      ]);
-    });
-};
+            name: 'Lansdowne Brewery',
+            latitude: '43.650632',
+            longitude: '-79.441766',
+            place_id: "ChIJn4mPYU40K4gRFY7CdQj7Y3s",
+            phone: '(416) 588-1641',
+            street_address: '303 Lansdowne Ave',
+            city: 'Toronto',
+            postal_code: 'M6K 2W5',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Tuesday - Sunday 16:00 - 1:00 hrs",
+            website: 'www.lansdownebrewery.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'St. James Park',
+            latitude: '43.6508405',
+            longitude: '-79.3752539',
+            place_id: "ChIJewPMCzHL1IkRsUlxsXNjbqw",
+            phone: '(416) 392-2489',
+            street_address: '120 King St E',
+            city: 'Toronto',
+            postal_code: 'M5C 1G6',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Sunday - Sunday 00:00 - 24:00 hrs",
+            website: 'www.toronto.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Ontario Place',
+            latitude: '43.6284288',
+            longitude: '-79.415727',
+            place_id: "ChIJCTljwA41K4gRj1c_zgCaN1k",
+            phone: '(416) 314-9900',
+            street_address: '955 Lake Shore Blvd W',
+            city: 'Toronto',
+            postal_code: 'M6K 3B9',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Sunday - Sunday 00:00 - 24:00 hrs",
+            website: 'www.ontarioplace.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Hot Docs Ted Rogers Cinema',
+            latitude: '43.665563',
+            longitude: '-79.4127656',
+            place_id: "ChIJJx6bz5M0K4gRxRx385CYfBY",
+            phone: '(416) 637-3123',
+            street_address: '506 Bloor St W',
+            city: 'Toronto',
+            postal_code: 'M5S 1Y3',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Sunday - Sunday 00:00 - 24:00 hrs",
+            website: 'www.hotdocscinema.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Fox and Fiddle',
+            latitude: '43.6650522',
+            longitude: '-79.3852672',
+            place_id: "ChIJ-8qLp7M0K4gRJGAShTJCjnI",
+            phone: '(416) 944-9369',
+            street_address: '27 Wellesley St E',
+            city: 'Toronto',
+            postal_code: 'M4Y 1G7',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Sunday-Saturday 11:00 - 2:00 hrs",
+            website: 'www.foxandfiddle.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Baby Huey',
+            latitude: '43.6466065',
+            longitude: '-79.4220449',
+            place_id: "ChIJBz1dKfw0K4gRgkUXmIa6W_I",
+            phone: '',
+            street_address: '110 Ossington Ave',
+            city: 'Toronto',
+            postal_code: 'M6J 2Z4',
+            province: 'ON',
+            country: 'Canada',
+            hours: "",
+            website: '',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'The Craft Brasserie & Grill',
+            latitude: '43.6292888',
+            longitude: '-79.4240263',
+            place_id: "ChIJx49EWwE1K4gRI0yga5jnXSI",
+            phone: '(416) 535-2337',
+            street_address: '107 Atlantic Ave',
+            city: 'Toronto',
+            postal_code: 'M6K 1Y2',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 11:00 - 2:00 hrs",
+            website: 'thecraftbrasserie.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Budweiser Stage',
+            latitude: '43.6292698',
+            longitude: '-79.4174334',
+            place_id: "ChIJa7dwhhA1K4gRUV9cPcYC64g",
+            phone: '(416) 260-5600',
+            street_address: '909 Lake Shore Blvd W',
+            city: 'Toronto',
+            postal_code: 'M6K 3L3',
+            province: 'ON',
+            country: 'Canada',
+            hours: "",
+            website: 'budweiserstage.org',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: '2 Cats Cocktail Lounge',
+            latitude: '43.6464111',
+            longitude: '-79.3999237',
+            place_id: "ChIJpWEXsvkyK4gRCvZ9LlbJo4E",
+            phone: '(416) 204-6261',
+            street_address: '569 King St W',
+            city: 'Toronto',
+            postal_code: 'M5M 1M1',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Thursday-Saturday 21:00 - 2:00 hrs",
+            website: '2cats.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Silo13',
+            latitude: '43.7602156',
+            longitude: '-79.4136887',
+            place_id: "ChIJg9cGd2MtK4gRjx-v6IMEm7o",
+            phone: '',
+            street_address: '4750 Yonge St Unit 107',
+            city: 'North York',
+            postal_code: 'M2N 5M6',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 7:30 - 15:00 hrs",
+            website: 'silo13.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Prohibition Gastrohouse - Midtown',
+            latitude: '43.7073438',
+            longitude: '-79.3993099',
+            place_id: "ChIJf3YLVTszK4gRf5GZ6WtTNbw",
+            phone: '(416) 406-2669',
+            street_address: '40 Eglinton Ave E',
+            city: 'Toronto',
+            postal_code: 'M4P 3A4',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 11:00 - 2:00 hrs",
+            website: 'myprohibition.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Dante\'s Inferno Paninoteca',
+            latitude: '43.674539',
+            longitude: '-79.4338449',
+            place_id: "ChIJx_6xens0K4gR6JmOR4GoKCU",
+            phone: '(416) 658-9600',
+            street_address: '1151 Davenport Rd',
+            city: 'Toronto',
+            postal_code: 'M6H 2G4',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Tuesday-Saturday 11:00 - 21:00 hrs",
+            website: 'dantesinfernopanini.ca',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Eastbound Brewing Company',
+            latitude: '43.6589545',
+            longitude: '-79.3524658',
+            place_id: "ChIJDXuGRmzL1IkRFNBdI7AXy_U",
+            phone: '(416) 901-1299',
+            street_address: '700 Queen St E',
+            city: 'Toronto',
+            postal_code: 'M4M 1G9',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 16:00 - 23:00 hrs",
+            website: 'eastboundbeer.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Estia',
+            latitude: '43.6723216',
+            longitude: '-79.3982598',
+            place_id: "ChIJscVGZqQ0K4gRJHi3sODPV3w",
+            phone: '(416) 367-4141',
+            street_address: '90 Avenue Rd',
+            city: 'Toronto',
+            postal_code: 'M5R 2H2',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 17:00 - 2:00 hrs",
+            website: 'estiatoronto.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        knex('items').insert(
+          {
+            name: 'Hollywood Cone',
+            latitude: '43.6426259',
+            longitude: '-79.4280446',
+            place_id: "ChIJOd9ooqo1K4gR5Sm4ft0orzM",
+            phone: '',
+            street_address: '1167 Queen St W',
+            city: 'Toronto',
+            postal_code: 'M6J 1J4',
+            province: 'ON',
+            country: 'Canada',
+            hours: "Monday-Sunday 12:00 - 22:00 hrs",
+            website: 'hollywoodcone.com',
+            created_at: knex.raw('now()'),
+            updated_at: knex.raw('now()')
+          }),
+        ]);
+      });
+    }
+  };

@@ -60,7 +60,7 @@ class CreateDatePlan extends Component {
     const description = encodeURIComponent(datePlanDesc.value);
     const owner_id = encodeURIComponent(datePlanUser);
     const formData = `name=${name}&description=${description}&owner_id=${owner_id}`;
-    
+
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/plans/');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -72,7 +72,7 @@ class CreateDatePlan extends Component {
       }
     })
     xhr.send(formData);
-    
+
     // fetch('http://localhost:8080/api/plans/', {
     //   method: 'POST',
     //   headers: {
@@ -119,10 +119,10 @@ class CreateDatePlan extends Component {
   }
 
   componentDidMount() {
-    
+
       console.log("herehere1");
       const script1 = document.createElement("script");
-      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
       script1.name = "googleMaps";
       script1.async = true;
       document.body.appendChild(script1);
@@ -181,7 +181,7 @@ class CreateDatePlan extends Component {
             {/*<MapView/>*/}
           </div>
         </div>
-        
+
       </div>
 
     );

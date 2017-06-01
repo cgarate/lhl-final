@@ -7,6 +7,7 @@ module.exports = (knex) => {
 
   // Get ALL users
   router.get("/", (req, res) => {
+    console.log("what is this ", req)
     knex
       .select("*")
       .from("users")

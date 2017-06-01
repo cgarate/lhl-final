@@ -119,16 +119,16 @@ class MyDatePlan extends Component {
     });
   }
 
-  componentDidMount() {    
-  
+  componentDidMount() {
+
     this.getAllDatePlansForUserReact();
 
     const script1 = document.createElement("script");
-    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+    script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
     script1.name = "googleMaps";
     script1.async = true;
     document.body.appendChild(script1);
-  
+
 }
 
   render() {
@@ -187,10 +187,10 @@ class MyDatePlan extends Component {
           this.state.datePlans.forEach( item => {
             item.planItems.forEach( singlePlanItem => {
               counter++;
-              theMenuItems.push(<MenuItem value={counter} 
+              theMenuItems.push(<MenuItem value={counter}
                 key={counter}
-                label={singlePlanItem.itemDetails.category} 
-                primaryText={singlePlanItem.itemDetails.category} 
+                label={singlePlanItem.itemDetails.category}
+                primaryText={singlePlanItem.itemDetails.category}
                 onClick={this.loadDatePlanCategory.bind(null, singlePlanItem.itemDetails.category)}
                 onTouchTap={this.props.onTouchTap}/>
               )
@@ -203,7 +203,7 @@ class MyDatePlan extends Component {
           </DropDownMenu>
         )
     }*/
-    
+
     return (
       <div className="datePlanMain">
         <div className="pageTitle">My Date Plans</div>

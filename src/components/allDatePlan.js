@@ -60,9 +60,9 @@ class DatePlan extends Component {
 
 
     const planId = encodeURIComponent(aPlan);
-    const userId = encodeURIComponent(10);
+    const userId = encodeURIComponent(1);
     const formData = `plan_id=${planId}&user_id=${userId}`;
-    
+
     const xhr = new XMLHttpRequest();
     xhr.open('post', 'http://localhost:8080/api/plans/');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -146,17 +146,17 @@ class DatePlan extends Component {
   //   }).length;
   // }
 
-  componentDidMount() {    
-  
+  componentDidMount() {
+
     this.getAllDatePlansReact();
 
     //get the number of `<script>` elements that have the correct `src` attribute
 
     // this.checkForScripts();
-    
+
     // var len = document.getElementsByTagName('script');
     // console.log(len.length);
-    
+
     // .filter(function () {
     //   console.log("herehere1");
     //     return (len.attr('src') === "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap");
@@ -166,20 +166,20 @@ class DatePlan extends Component {
     // if (len === 0) {
       console.log("herehere1");
       const script1 = document.createElement("script");
-      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
       script1.name = "googleMaps";
       script1.async = true;
       document.body.appendChild(script1);
     // }
 
 
-    
+
 
     // const script2 = document.createElement("script");
     // script2.src = "./mapScript.js"
     // script2.async = true;
     // document.body.appendChild(script2);
-  
+
 }
 
   render() {
@@ -237,10 +237,10 @@ class DatePlan extends Component {
           this.state.datePlans.forEach( item => {
             item.planItems.forEach( singlePlanItem => {
               counter++;
-              theMenuItems.push(<MenuItem value={counter} 
+              theMenuItems.push(<MenuItem value={counter}
                 key={counter}
-                label={singlePlanItem.itemDetails.category} 
-                primaryText={singlePlanItem.itemDetails.category} 
+                label={singlePlanItem.itemDetails.category}
+                primaryText={singlePlanItem.itemDetails.category}
                 onClick={this.loadDatePlanCategory.bind(null, singlePlanItem.itemDetails.category)}
                 onTouchTap={this.props.onTouchTap}/>
               )
@@ -253,7 +253,7 @@ class DatePlan extends Component {
           </DropDownMenu>
         )
     }*/
-    
+
     return (
       <div className="datePlanMain">
         <div className="pageTitle">All Date Plans</div>
