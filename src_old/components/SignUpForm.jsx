@@ -1,12 +1,10 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { Card, CardText } from 'material-ui/Card';
-import { Card } from 'material-ui/Card';
-
+import { Link } from 'react-router-dom';
+import { Card, CardText } from 'material-ui/Card';
+//import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
-//import './signup.css'
 
 const SignUpForm = ({
   onSubmit,
@@ -15,7 +13,6 @@ const SignUpForm = ({
   errors,
   user
 }) => (
-
   <Card className="container">
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Sign Up</h2>
@@ -86,7 +83,7 @@ const SignUpForm = ({
         <RaisedButton type="submit" label="Create New Account" primary />
       </div>
 
-      {/* <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText> */}
+      <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
 
     </form>
   </Card>

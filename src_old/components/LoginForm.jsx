@@ -1,7 +1,6 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import { Card } from 'material-ui/Card';
-// import { Card, CardText } from 'material-ui/Card';
+import { Link } from 'react-router-dom';
+import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
@@ -11,14 +10,12 @@ const LoginForm = ({
   onChange,
   errors,
   successMessage,
-  registeredUserFirst,
   user
 }) => (
   <Card className="container">
     <form action="/" onSubmit={onSubmit}>
       <h2 className="card-heading">Login</h2>
 
-      {registeredUserFirst && <p className="successMessage">Welcome {registeredUserFirst} please login.</p>}
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
@@ -47,7 +44,7 @@ const LoginForm = ({
         <RaisedButton type="submit" label="Log in" primary />
       </div>
 
-      {/* <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link></CardText> */}
+      <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link></CardText>
 
     </form>
   </Card>

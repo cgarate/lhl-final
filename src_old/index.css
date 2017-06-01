@@ -17,13 +17,6 @@ body {
   font-size: 16px;
 }
 
-.midcentered {
-    display: table;
-    margin:auto;
-    width: 100%;
-}
-
-
 a {
   color: #00bcd4;
   font-weight: bold;
@@ -38,8 +31,9 @@ a:hover {
 .homepage {
   text-align: center;
   color: #fff;
-  font-size: 92px;
+  font-size: 100px;
   font-family: 'Kaushan Script', cursive;
+  /*font-family: 'Amatic SC', cursive;*/
 }
 
 .subtitle {
@@ -85,19 +79,19 @@ a:hover {
 }
 
 .card-heading {
-  padding: 15px;
+  padding: 16px;
 }
 
 .field-line, .button-line {
-  padding: 5px;
+  padding: 16px;
 }
 
 .error-message {
-  padding: 0 10px;
+  padding: 0 16px;
   color: tomato;
 }
 
 .success-message {
-  padding: 0 10px;
+  padding: 0 16px;
   color: green;
 }

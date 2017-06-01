@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import SignUpForm from '../components/SignUpForm.jsx';
 
@@ -50,14 +50,11 @@ class SignUpPage extends React.Component {
           errors: {}
         });
 
-
-
         // Save this message. It will be used in the login page to let the users know that they are registered.
         localStorage.setItem('signupStatus', xhr.response.message);
-        this.props.informMe(this.state.user);
 
         // make a redirect
-        //this.context.router.history.replace('/login');
+        this.context.router.history.replace('/login');
 
       } else {
         // failure
@@ -105,8 +102,8 @@ class SignUpPage extends React.Component {
 
 }
 
-// SignUpPage.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
+SignUpPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default SignUpPage;

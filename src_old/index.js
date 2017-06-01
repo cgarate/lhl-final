@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 //import Routes from './routes.js';
 
+import TabsExampleIconText from './containers/tabs.jsx';
 import Base from './components/Base.jsx';
 import NavBar from './components/navbar.js';
 import CreateDatePlan from './components/createDatePlan.js';
@@ -28,11 +29,13 @@ registerServiceWorker();
 
 ReactDom.render((
   <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <div>
+    <TabsExampleIconText />
     <Router>
 
       <Base>
         <div>
-          <NavBar/>
+          <NavBar>
           <Route path='/home' component={HomePage} />
           <Route path='/signup' component={SignUpPage} />
           <Route path='/login' component={LoginPage} />
@@ -40,8 +43,10 @@ ReactDom.render((
           <Route path='/datePlans' component={DatePlan} />
           <Route path='/myDatePlans' component={MyDatePlan} />
           <Route path='/createDatePlans' component={CreateDatePlan} />
+        </NavBar>
         </div>
       </Base>
 
     </Router>
+    </div>
   </MuiThemeProvider>), document.getElementById('root'));

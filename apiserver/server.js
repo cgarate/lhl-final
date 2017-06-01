@@ -95,8 +95,8 @@ app.post('/upload', function(req, res) {
   imageFile.mv(userImageNewFilenamePath, function(err) {
     if (err)
       return res.status(500).send(err);
-
-    res.send('File uploaded!');
+    let userImageNewFilenamePath = "http://localhost:8080/img/" + req.files.imageFile.name;
+    res.send(userImageNewFilenamePath);
   });
 });
 

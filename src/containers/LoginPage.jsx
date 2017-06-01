@@ -1,7 +1,7 @@
 import React from 'react';
 import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm.jsx';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 
 class LoginPage extends React.Component {
 
@@ -57,11 +57,12 @@ class LoginPage extends React.Component {
         // save the token
         Auth.authenticateUser(xhr.response.token);
         Auth.saveUserInfo(xhr.response.userData);
+        this.props.informMe(this.state.user);
+
         // change the current URL to /
-        this.context.router.history.replace('/home');
+        //this.context.router.history.replace('/home');
 
       } else {
-        console.log(xhr.response);
         // change the component state
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
@@ -92,14 +93,15 @@ class LoginPage extends React.Component {
         onChange={this.changeUser}
         errors={this.state.errors}
         user={this.state.user}
+        registeredUserFirst={this.props.registeredUserFirst}
       />
     );
   }
 
 }
 
-LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired
-};
+// LoginPage.contextTypes = {
+//   router: PropTypes.object.isRequired
+// };
 
 export default LoginPage;

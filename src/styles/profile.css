@@ -9,10 +9,10 @@
   font-size: 3em;
 }
 
-form {
+/*form {
   background-color: brown;
   padding: 20px;
-}
+}*/
 
 form label {
   margin-right: 15px;
@@ -30,9 +30,6 @@ form input {
     margin-bottom:10px;
 }
 
-table {
-  
-}
 
 table tr td {
   text-align: right;

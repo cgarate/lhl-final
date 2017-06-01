@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Auth from '../modules/Auth.js';
 
-const Base = ( {children} ) => (
+const Carousel = ( {children} ) => (
   <div>
     <div className="top-bar">
       <div className="top-bar-left">
@@ -31,8 +31,8 @@ const Base = ( {children} ) => (
   </div>
 );
 
-Base.propTypes = {
+Carousel.propTypes = {
   children: PropTypes.object.isRequired
 };
 
-export default Base;
+export default Carousel;

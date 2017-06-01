@@ -1,66 +1,68 @@
-// import PropTypes from 'prop-types';
 import React from 'react';
-import SignUpForm from '../components/SignUpForm.jsx';
+import Auth from '../modules/Auth';
+import LoginForm from '../components/LoginForm.jsx';
+import PropTypes from 'prop-types';
 
-class SignUpPage extends React.Component {
+class LoginPage extends React.Component {
+
 
   constructor(props, context) {
     super(props, context);
 
+    const storedMessage = localStorage.getItem('signupStatus');
+    let successMessage = '';
+
+    if (storedMessage) {
+      successMessage = storedMessage;
+      localStorage.removeItem('signupStatus');
+    }
+
     // set the initial component state
     this.state = {
       errors: {},
+      successMessage,
       user: {
         email: '',
-        first_name: '',
-        last_name: '',
-        username: '',
         password: ''
-        // dob: ''
       }
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
-    // this.changeDate = this.changeDate.bind(this);
   }
+
 
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
     // create a string for an HTTP body message
-    const first_name = encodeURIComponent(this.state.user.first_name);
-    const last_name = encodeURIComponent(this.state.user.last_name);
-    const username = encodeURIComponent(this.state.user.username);
     const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
-    const formData = `first_name=${first_name}&last_name=${last_name}&username=${username}&email=${email}&password=${password}`;
+    const formData = `email=${email}&password=${password}`;
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('post', 'http://localhost:8080/api/auth/signup');
+    xhr.open('post', 'http://localhost:8080/api/auth/login');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.withCredentials = true;
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-
         // change the component-container state
         this.setState({
           errors: {}
         });
 
-
-
-        // Save this message. It will be used in the login page to let the users know that they are registered.
-        localStorage.setItem('signupStatus', xhr.response.message);
-        this.props.informMe(this.state.user);
-
-        // make a redirect
-        //this.context.router.history.replace('/login');
+        // save the token
+        Auth.authenticateUser(xhr.response.token);
+        Auth.saveUserInfo(xhr.response.userData);
+        // change the current URL to /
+        this.context.router.history.replace('/home');
 
       } else {
-        // failure
+        console.log(xhr.response);
+        // change the component state
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
 
@@ -82,21 +84,12 @@ class SignUpPage extends React.Component {
     });
   }
 
-  // changeDate(event, date) {
-  //   this.setState({
-  //     user: { dob: date }
-  //   });
-  // }
 
-  /**
-   * Render the component.
-   */
   render() {
     return (
-      <SignUpForm
+      <LoginForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
-        // onChangeDate={this.changeDate}
         errors={this.state.errors}
         user={this.state.user}
       />
@@ -105,8 +98,8 @@ class SignUpPage extends React.Component {
 
 }
 
-// SignUpPage.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
+LoginPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
-export default SignUpPage;
+export default LoginPage;
