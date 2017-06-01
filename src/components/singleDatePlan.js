@@ -37,7 +37,7 @@ class SingleDatePlan extends Component {
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Locate" primary={true} key={item.id} onClick={this.props.locatePlace.bind(null, item)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Locate" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.props.locatePlace.bind(null, item)}/></TableRowColumn>
           </TableRow>)
         });
       }

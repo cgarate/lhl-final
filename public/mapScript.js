@@ -247,7 +247,7 @@
               if (status === google.maps.places.PlacesServiceStatus.OK) {
                 //set the marker property on this infowindow so it isn't crreated again
                 infowindow.marker = marker;
-                var innerHTML = '<div>';
+                var innerHTML = '<div class="textColor">';
                 if (place.name) {
                   innerHTML += '<strong>' + place.name + '</strong>';
                 }
@@ -313,7 +313,9 @@
         const tableRow = document.createElement("tr");
         tableRow.setAttribute("id", "testId");
         const cellName = document.createElement("td");
+        cellName.setAttribute("class", "userSelectedItemsBottomRow");
         const cellRemove = document.createElement("td");
+        cellRemove.setAttribute("class", "userSelectedItemsBottomRow");
         const removeButton = document.createElement("BUTTON");
         removeButton.onclick = function () {
           var buttonParent = this.parentNode;
@@ -458,7 +460,7 @@
                 map: map,
                 position: results[0].geometry.location
               });
-              infowindow.setContent(results[0].formatted_address);
+              infowindow.setContent('<div class="textColor">' + results[0].formatted_address + '</div>');
               infowindow.open(map, marker);
             } else {
               window.alert('No results found');

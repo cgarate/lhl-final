@@ -24,8 +24,13 @@
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;
-  margin: 10px;
-  padding: 10px;
+  font-family: Helvetica, sans-serif;
+  /*margin: 10px;
+  padding: 10px;*/
+}
+
+.textColor {
+  color: black;
 }
 
 #zoom-to-area-text {
@@ -37,3 +42,4 @@ html, body {
 #zoom-to-area {
   width: 24%;
 }
+

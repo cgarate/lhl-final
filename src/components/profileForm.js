@@ -21,6 +21,7 @@ import '../styles/profile.css';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField'; 
 import ImageUpload from './imageUploader.js';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 
@@ -39,9 +40,12 @@ class ProfileForm extends Component {
 
   saveURL = () => {
     var newImageURL = document.getElementById("newImage").value;
-    console.log("newImage: ", newImageURL);
-    var ret = newImageURL.replace("C:\\fakepath\\", "");
-    this.props.saveImage(ret);
+    console.log("WHAT AM I:", newImageURL);
+    // if (newImageURL) {
+    //   var ret = newImageURL.replace("C:\\fakepath\\", "");
+    //   this.props.saveImage(ret);
+    // }
+    
   }
 
   render() {
@@ -51,30 +55,42 @@ class ProfileForm extends Component {
     // let birthday = new Date(this.props.userInfo.dob);
     let birthday = new Date();
 
+    var imageURL = "http://localhost:8080/public/img/basketball.jpg"
+
 
     return (
       <div>
-        <div>
+        <div className="marginTop20">
           {/*<form action="http://localhost:8080/api/users/update/?_method=PUT" method="POST">*/}
             <Table className="profileTable" selectable={false}>
               <TableHeader
                 displaySelectAll={false}
                 adjustForCheckbox={false}
               >
-                <TableRow>
+                {/*<TableRow>
                   <TableHeaderColumn className="tableCellStyle tableCellHeaderStyle"></TableHeaderColumn>
-                  <TableHeaderColumn className="tableCellStyle tableCellHeaderStyle">Update Fields</TableHeaderColumn>
-                </TableRow>
+                  <TableHeaderColumn className="tableCellStyle tableCellHeaderStyle"></TableHeaderColumn>
+                </TableRow>*/}
               </TableHeader>
               <TableBody
                 displayRowCheckbox={false}
               >
-              <TableRow>
+                <TableRow>
                   <TableRowColumn className="tableCellStyle">
                     <label htmlFor="profileImage">Profile Image:</label>
                   </TableRowColumn>
                   <TableRowColumn className="tableCellStyle">
-                    <img src="./images/smiley-face.jpg" height="250" width="250"/>
+                    <img src={imageURL} height="250" width="250"/>
+                  </TableRowColumn>
+                </TableRow>
+                <TableRow>
+                  <TableRowColumn className="tableCellStyle">
+                  </TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">
+                    <form className="profileForm" method="post" encType="multipart/form-data" action="http://localhost:8080/upload">
+                      <input id="newImage" className="imageUploadButtons" type="file" name="imageFile" size="40" onChange={this.saveURL.bind(this)}/>
+                      <input type="submit" className="imageUploadButtons" value="Upload" />
+                    </form>
                   </TableRowColumn>
                 </TableRow>
                 <TableRow>
@@ -132,16 +148,17 @@ class ProfileForm extends Component {
                   <TableRowColumn className="tableCellStyle">
                   </TableRowColumn>
                   <TableRowColumn className="tableCellStyle">
-                    <input type="submit" value="Update" className="profileSubmitButton" onClick={this.props.saveUser}/>
+                    {/*<input type="submit" value="Update" className="profileSubmitButton" onClick={this.props.saveUser}/>*/}
+                    <RaisedButton label="Update" labelColor="#ffffff" backgroundColor="#2081C3" onClick={this.props.saveUser}/>
                   </TableRowColumn>
                 </TableRow>
               </TableBody>
             </Table>
           {/*</form>*/}
-          <form method="post" encType="multipart/form-data" action="http://localhost:8080/upload">
+          {/*<form method="post" encType="multipart/form-data" action="http://localhost:8080/upload">
             <input id="newImage" type="file" name="imageFile" size="40" onChange={this.saveURL.bind(this)}/>
             <input type="submit" value="Upload" />
-          </form>
+          </form>*/}
           {/*<ImageUpload />*/}
         </div>
       </div>

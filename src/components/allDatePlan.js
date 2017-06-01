@@ -212,8 +212,8 @@ class DatePlan extends Component {
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View Plan" primary={true} key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Save Plan" primary={true} key={item.id} onClick={this.saveDatePlanToUserReact.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View Plan" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Save Plan" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.saveDatePlanToUserReact.bind(null, item.id)}/></TableRowColumn>
           </TableRow>)
         });
       }
@@ -221,6 +221,7 @@ class DatePlan extends Component {
         <Table
           fixedHeader={true}
           height="241px"
+          className="tableStyle"
         >
           <TableHeader
             displaySelectAll={this.state.showCheckBoxes}
@@ -270,7 +271,6 @@ class DatePlan extends Component {
 
     return (
       <div className="datePlanMain">
-        <div className="pageTitle">All Date Plans</div>
         <div className="datePlanMainSection">
           {/*<div className="datePlanDropDown">
             {dropDownPlanList}

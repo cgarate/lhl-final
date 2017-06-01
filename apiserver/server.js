@@ -84,21 +84,24 @@ app.use(express.static("/public"));
 app.use(fileUpload());
 app.post('/upload', function(req, res) {
 
-  if (!req.files) {
-    return res.status(400).send('No files were uploaded.');
+console.log("whatIMage: ", req.files.imageFile);
+  if(req.files.imageFile) {
+    if (!req.files) {
+      return res.status(400).send('No files were uploaded.');
+    }
+
+    // The name of the input field (i.e. "imageFile") is used to retrieve the uploaded file
+    let imageFile = req.files.imageFile;
+    let userImageNewFilenamePath = "public/img/" + req.files.imageFile.name;
+    // Use the mv() method to place the file somewhere on your server
+    imageFile.mv(userImageNewFilenamePath, function(err) {
+      if (err)
+        return res.status(500).send(err);
+
+      // res.send('File uploaded!');
+      res.redirect(req.get('referer'));
+    });
   }
-
-  // The name of the input field (i.e. "imageFile") is used to retrieve the uploaded file
-  let imageFile = req.files.imageFile;
-  let userImageNewFilenamePath = "public/img/" + req.files.imageFile.name;
-  // Use the mv() method to place the file somewhere on your server
-  imageFile.mv(userImageNewFilenamePath, function(err) {
-    if (err)
-      return res.status(500).send(err);
-
-    // res.send('File uploaded!');
-    res.redirect(req.get('referer'));
-  });
 });
 
 // Mount all resource routes

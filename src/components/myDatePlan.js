@@ -128,7 +128,8 @@ class MyDatePlan extends Component {
           if (plansState[i].id === itemId)
             plansState.splice(i, 1);
             this.setState({
-              plansState
+              plansState,
+              aSingleDatePlan: []
             });
         }
       }
@@ -164,15 +165,15 @@ class MyDatePlan extends Component {
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View" primary={true} key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Remove" primary={true} key={item.id} onClick={this.removeDatePlanReact.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Remove" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.removeDatePlanReact.bind(null, item.id)}/></TableRowColumn>
           </TableRow>)
         });
       }
       outputDatePlans = (
         <Table
           fixedHeader={true}
-          height="300px"
+          height="241px"
         >
           <TableHeader
             displaySelectAll={this.state.showCheckBoxes}
@@ -222,7 +223,6 @@ class MyDatePlan extends Component {
 
     return (
       <div className="datePlanMain">
-        <div className="pageTitle">My Date Plans</div>
         <div className="datePlanMainSection">
           {/*<div className="datePlanDropDown">
             {dropDownPlanList}

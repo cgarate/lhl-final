@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/profile.css';
 import ProfileForm from './profileForm.js';
 import Auth from '../modules/Auth';
-
+import Card from 'material-ui/Card';
 
 
 class Profile extends Component {
@@ -116,9 +116,11 @@ class Profile extends Component {
 
     return (
       <div className="profileMainSection">
-        <div className="pageTitle">Profile</div>
         <div>
-          <ProfileForm userInfo={this.state.userData} onChange={this.changeUser} saveImage={this.saveUserImage.bind(this)} saveUser={this.saveUserInfo.bind(this)}/>
+            <div className="datePlanMainSection">
+              <div className="sectionTitle">Profile</div>
+              <ProfileForm userInfo={this.state.userData} onChange={this.changeUser} saveImage={this.saveUserImage.bind(this)} saveUser={this.saveUserInfo.bind(this)}/>
+            </div>
         </div>
       </div>
     );

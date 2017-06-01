@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/createDatePlan.css';
 import Auth from '../modules/Auth';
 // import '../styles/materialize.css';
@@ -150,15 +150,22 @@ class CreateDatePlan extends Component {
 
     return (
       <div className="createDatePlanMain">
-        <div className="pageTitle">Create Date Plan</div>
+        {/*<div className="pageTitle">Create Date Plan</div>*/}
         {/*<input type="submit" className="createFormButton" onClick={window.buttonTest.bind(null)}/>*/}
         {/*<input type="submit" value="Create Plan" className="createFormButton" onClick={this.saveDatePlan.bind(null)}/>*/}
-        <div className="planItemsCreateForm">
-          <input type="submit" value="Clear" className="createFormButton" onClick={this.clearDatePlan.bind(null)}/>
-          <input type="submit" value="Create" className="createFormButton" onClick={this.saveDatePlan.bind(null)}/>
+        {/*<div className="planItemsCreateForm">*/}
+          <div className="datePlanMainSection">
+          
+          {/*<input type="submit" value="Clear" className="createFormButton" onClick={this.clearDatePlan.bind(null)}/>
+          <input type="submit" value="Create" className="createFormButton" onClick={this.saveDatePlan.bind(null)}/>*/}
           <div className="sectionTitle">Create Date Plan</div>
+          <div className="planCreateSection">
+            <RaisedButton className="createFormButton" label="Clear" labelColor="#ffffff" backgroundColor="#2081C3" onClick={this.clearDatePlan.bind(null)}/>
+            <RaisedButton className="createFormButton" label="Create" labelColor="#ffffff" backgroundColor="#2081C3" onClick={this.saveDatePlan.bind(null)}/>
+
           <div className="createDatePlanForm">
             {/*<form action="" method="POST">*/}
+              
               <label htmlFor="createDatePlanName" className="createDatePlanNameLabel">Enter Date Plan Name</label>
               <input id="createDatePlanName" type="text" className="createFormNameInput"/>
               <br/>
@@ -170,6 +177,12 @@ class CreateDatePlan extends Component {
                 {/*<CreateDatePlanTable createDatePlanItems={this.state.datePlanItems}/>*/}
                 <table id="userSelectedItems" className="userSelectedItems">
                   <tbody id="selectedItemsTableBody">
+                    {/*<tr>
+                      <td className="userSelectedItemsBottomRow">Hello
+                      </td>
+                      <td className="userSelectedItemsBottomRow"><input type="submit" value="submit"/>
+                      </td>
+                    </tr>*/}
                   </tbody>
                 </table>
               </div>
@@ -184,10 +197,11 @@ class CreateDatePlan extends Component {
                         {/*<label htmlFor="createDatePlanName" className="createDatePlanNameLabel">Enter Date Plan Name</label>
                         <input id="createDatePlanName" type="text" className="createFormNameInput"/>*/}
                         <input id="places-search" className="places-search" type="text" placeholder="Ex. Bars in the TO"/>
-                        <input id="go-places" className="go-places" type="button" value="Search"/>
+                        <RaisedButton id="go-places" className="createFormButton searchButtonCreate" label="Search" labelColor="#ffffff" backgroundColor="#2081C3"/>
+                        {/*<input id="go-places" className="go-places" type="button" value="Search"/>*/}
                       </div>
                     </div>
-                    <div id="map"></div>
+                    <div id="map" className="createDatePlanMap"></div>
                   </div>
                 </div>
               </div>
@@ -196,6 +210,7 @@ class CreateDatePlan extends Component {
           </div>
           <div>
             {/*<MapView/>*/}
+          </div>
           </div>
         </div>
 
