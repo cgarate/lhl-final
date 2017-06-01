@@ -8,6 +8,13 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import '../styles/home.css';
 import MobileTearSheet from '../components/MobileTearSheet';
 import Avatar from 'material-ui/Avatar';
@@ -15,6 +22,8 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import MatchProfile from '../components/matchProfile.js';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class HomePage extends Component {
 
@@ -30,7 +39,8 @@ class HomePage extends Component {
       dateplans: [],
       events: [],
       mydateplans: [],
-      myevents: []
+      myevents: [],
+      matches: []
     };
   };
 
@@ -109,6 +119,16 @@ class HomePage extends Component {
     })
   }
 
+  getMatches = () => {
+
+  }
+
+
+  loadMatchProfile = (userId) => {
+    <Link to="/matchProfile"><MatchProfile matchId={userId} /></Link>
+  }
+
+
   componentDidMount() {
 
     //this.getAllUsersReact();
@@ -122,9 +142,8 @@ class HomePage extends Component {
   render() {
     return (
       <div className="mainSection">
-        <div className="pageTitle">User Dashboard</div>
         <div className="eventsSection">
-          <div className="sectionTitle">Upcoming Dates</div>
+          <div className="sectionTitle">Date Plan Matches</div>
           <div className="eventsList">
             <Table className="tableAlign">
               <TableHeader
@@ -132,26 +151,33 @@ class HomePage extends Component {
                 adjustForCheckbox={this.state.showCheckBoxes}
               >
                 <TableRow>
-                  <TableHeaderColumn className="tableCellStyle">Date Name</TableHeaderColumn>
-                  <TableHeaderColumn className="tableCellStyle">Date Plan</TableHeaderColumn>
-                  <TableHeaderColumn className="tableCellStyle">Date/Time</TableHeaderColumn>
+                  <TableHeaderColumn className="tableCellStyle">Name</TableHeaderColumn>
+                  <TableHeaderColumn className="tableCellStyle">Matched Plan</TableHeaderColumn>
+                  <TableHeaderColumn className="tableCellStyle"></TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody
                 displayRowCheckbox={this.state.showCheckBoxes}>
 
-              {this.state.myevents.map( (event) => {
+              {this.state.matches.map( (match) => {
                 return <TableRow>
-                  <TableRowColumn className="tableCellStyle">{event.eventName}</TableRowColumn>
-                  <TableRowColumn className="tableCellStyle">{event.name}</TableRowColumn>
-                  <TableRowColumn className="tableCellStyle">{event.date}</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">{match.username}</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">{match.email}</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle"></TableRowColumn>
+                  {/*<Link to="/matchProfile"><RaisedButton className="createFormButton" label="Load" labelColor="#ffffff" backgroundColor="#2081C3" {...match}/></Link>*/}
                 </TableRow>
+                
               })}
 
-
+                  {/*<Link to="/matchProfile"><RaisedButton className="createFormButton" label="Load" labelColor="#ffffff" backgroundColor="#2081C3" matchId={6}/></Link>*/}
+                  {/*<TableRow>
+                  <TableRowColumn className="tableCellStyle">Bird</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle">Dog</TableRowColumn>
+                  <TableRowColumn className="tableCellStyle"></TableRowColumn>
+                  <Link to="/matchProfile" ><RaisedButton className="createFormButton" label="Load" labelColor="#ffffff" backgroundColor="#2081C3" /></Link>
+                </TableRow>*/}
               </TableBody>
             </Table>
-
           </div>
         </div>
 
@@ -177,7 +203,7 @@ class HomePage extends Component {
 
 
 
-        <div className="chatSection">
+        {/*<div className="chatSection">
           <div className="sectionTitle">Chat</div>
           <div className="chatWindow">
           </div>
@@ -187,7 +213,6 @@ class HomePage extends Component {
           <div className="chatList">
             <MobileTearSheet>
               <List>
-                <Subheader>Recent chats</Subheader>
                 <ListItem
                   primaryText="Brendan Lim"
                   leftAvatar={<Avatar src="images/kolage-128.jpg" />}
@@ -240,8 +265,8 @@ class HomePage extends Component {
                 />
               </List>
             </MobileTearSheet>
-          </div>
-        </div>
+          </div>*/}
+        {/*</div>*/}
       </div>
 
     );

@@ -54,18 +54,6 @@ class Profile extends Component {
 
   saveUserInfo = () => {
 
-    console.log("USERDATA: ", this.state.userData);
-
-    // let s_first_name = document.getElementById("profileFirstName").value;
-    // let s_last_name = document.getElementById("profileLastName").value;
-    // let s_username = document.getElementById("profileUsername").value;
-    // let s_email = document.getElementById("profileEmail").value;
-    // let s_dob = document.getElementById("profileBirthdate").value;
-    // let s_bio = document.getElementById("profileBio").value;
-    // let s_id = document.getElementById("profileId").value;
-
-    console.log("USERDATA: ", this.state.userData);
-
     // create a string for an HTTP body message
     const e_first_name = encodeURIComponent(this.state.userData.first_name);
     const e_last_name = encodeURIComponent(this.state.userData.last_name);

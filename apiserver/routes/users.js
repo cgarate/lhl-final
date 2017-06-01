@@ -160,7 +160,7 @@ module.exports = (knex) => {
 
     // get a user through its ID. Returns JSON.
     router.get("/:id", (req, res) => {
-      console.log(req.params)
+      console.log("idwhat", req.params)
       knex
         .select("*")
         .where('id', "=", req.params.id)
@@ -170,6 +170,23 @@ module.exports = (knex) => {
         }, (rej) => {
           res.sendStatus(400)
         });
+    });
+
+    // get user messages with a matched user
+    router.get("/messages/", (req, res) => {
+      console.log("Please: ", req.body);
+      knex
+      .select("*")
+      .where("sender", "=", req.body.userId)
+      .andWhere("recipient", "=", req.body.matchId)
+      .orWhere("recipient", "=", req.body.userId)
+      .andWhere("sender", "=", req.body.matchId)
+      .from("messages")
+      .then( (results) => {
+        res.json(results);
+      }, (rej) => {
+        res.sendStatus(400)
+      });
     });
 
   return router;
