@@ -20,7 +20,7 @@
     "fs": "0.0.2",
     "fs-extra": "^3.0.1",
     "jsonwebtoken": "^7.4.1",
-    "knex": "^0.13.0",
+    "knex": "^0.19.5",
     "knex-logger": "^0.1.0",
     "method-override": "^2.3.9",
     "morgan": "^1.8.1",
