@@ -15,6 +15,7 @@ import HomePage from './containers/HomePage.jsx';
 import Profile from './components/profile.js';
 import MyDatePlan from './components/myDatePlan.js';
 import DatePlan from './components/allDatePlan.js';
+import MatchProfile from './components/matchProfile.js';
 
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
@@ -40,6 +41,7 @@ ReactDom.render((
           <Route path='/datePlans' component={DatePlan} />
           <Route path='/myDatePlans' component={MyDatePlan} />
           <Route path='/createDatePlans' component={CreateDatePlan} />
+          <Route path='/matchProfile' component={MatchProfile} />
         </div>
       </Base>
 

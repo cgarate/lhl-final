@@ -66,6 +66,46 @@ module.exports = (knex) => {
       });
     });
 
+    //Insert new plan, its items (3 tables)
+    router.post("/plan_items/", (req, res) => {
+      console.log("req", req.body);
+      var newPlanId;
+      
+      knex("plans")
+        .returning('id')
+        .insert({
+          name: req.body.plans.name,
+          description: req.body.plans.description,
+          owner_id: req.body.plans.owner_id,
+          tod: req.body.plans.tod,
+          avg_rating: 0,
+          likes: 0
+        })
+        .then( (results) => {
+          console.log("here2");
+          let planID = JSON.parse(results);
+          newPlanId = planID;
+          knex.batchInsert("items", req.body.items)
+          .returning('id')
+          .then( (ids) => {
+            let plans_items = [];
+            ids.forEach( (v, i) => {
+              plans_items.push({plan_id: planID, item_id: v})
+            })
+            knex.batchInsert("plans_items", plans_items)
+            .returning('id')
+            .then( (id) => {
+              res.json(newPlanId);
+            }, (reject) => {
+              console.error("Something went wrong after inserting plans_items. ", reject);
+            })
+          }, (reject) => {
+            console.error("Something went wrong after inserting items. ", reject)
+          })// reject/then
+        }, (reject) => {
+          console.error("Something went wrong after inserting plans. ", reject)
+        })
+    })
 
     // insert plans/items.
     router.post("/plan_item/", (req, res) => {
@@ -131,40 +171,6 @@ module.exports = (knex) => {
         });
     });
 
-    //Insert new plan, its items (3 tables)
-    router.post("/plan_items/", (req, res) => {
-      console.log(req.body)
-      knex("plans")
-        .returning('id')
-        .insert({
-          name: req.body.plans.name,
-          description: req.body.plans.description,
-          owner_id: req.body.plans.owner_id,
-          tod: req.body.plans.tod
-        })
-        .then( (results) => {
-          let planID = JSON.parse(results);
-          knex.batchInsert("items", req.body.items)
-          .returning('id')
-          .then( (ids) => {
-            let plans_items = [];
-            ids.forEach( (v, i) => {
-              plans_items.push({plan_id: planID, item_id: v})
-            })
-            knex.batchInsert("plans_items", plans_items)
-            .returning('id')
-            .then( () => {
-              res.sendStatus(200);
-            }, (reject) => {
-              console.error("Something went wrong after inserting plans_items. ", reject);
-            })
-          }, (reject) => {
-            console.error("Something went wrong after inserting items. ", reject)
-          })// reject/then
-        }, (reject) => {
-          console.error("Something went wrong after inserting plans. ", reject)
-        })
-    })
 
 return router;
 }

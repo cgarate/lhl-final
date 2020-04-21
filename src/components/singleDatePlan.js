@@ -8,6 +8,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
 import '../styles/datePlan.css';
 
 class SingleDatePlan extends Component {
@@ -18,6 +19,12 @@ class SingleDatePlan extends Component {
       selectable: false,
       showCheckBoxes: false
     };
+
+    // this.locatePlace = this.props.locatePlace.bind(this);
+  }
+
+  handleLocation = (item) => {
+    this.props.locatePlace(item);
   }
 
   render() {
@@ -30,13 +37,14 @@ class SingleDatePlan extends Component {
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Locate" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.props.locatePlace.bind(null, item)}/></TableRowColumn>
           </TableRow>)
         });
       }
       outputActivities = (
         <Table
           fixedHeader={true}
-          height="300px"
+          height="241px"
         >
           <TableHeader
             displaySelectAll={this.state.showCheckBoxes}
@@ -45,6 +53,7 @@ class SingleDatePlan extends Component {
             <TableRow>
               <TableHeaderColumn className="tableCellStyle">Location</TableHeaderColumn>
               <TableHeaderColumn className="tableCellStyle">Description</TableHeaderColumn>
+              <TableHeaderColumn className="tableCellStyle"></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody

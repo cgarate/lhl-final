@@ -33,7 +33,9 @@ class DatePlan extends Component {
     this.getAllDatePlansReact = this.getAllDatePlansReact.bind(this);
   }
 
-
+  locateGeoCoor = (place) => {
+    window.locateGeoPosition(place)
+  }
 
   handleChange = (event, index, value) => {
     this.setState({value});
@@ -53,20 +55,23 @@ class DatePlan extends Component {
 
   saveDatePlanToUserReact = (aPlan) => {
 
-    const planId = encodeURIComponent(aPlan);
-    const userId = encodeURIComponent(Auth.getUserID());
-    const formData = `plan_id=${planId}&user_id=${userId}`;
+    const formData = {
+      plan_id: aPlan, 
+      user_id: Auth.getUserID()
+    };
 
+    const jsonObj = JSON.stringify(formData);
     const xhr = new XMLHttpRequest();
-    xhr.open('post', 'http://localhost:8080/api/plans/');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.open('post', 'http://localhost:8080/api/users/user_plan/');
+    xhr.setRequestHeader('Content-type', 'application/json');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
+        //xhr.response;
         console.log("now: ", xhr.response);
       }
     })
-    xhr.send(formData);
+    xhr.send(jsonObj);
   }
 
 
@@ -114,6 +119,27 @@ class DatePlan extends Component {
     })
   }
 
+  savePlanToUser = (planId) => {
+
+    const formData = {
+      plan_id: planId, 
+      user_id: Auth.getUserID()
+    };
+
+    const jsonObj = JSON.stringify(formData);
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'http://localhost:8080/api/users/user_plan/');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        //xhr.response;
+        console.log("now: ", xhr.response);
+      }
+    })
+    xhr.send(jsonObj);
+  }
+
   // checkForScripts = () => {
   //   var len = document.getElementsByName('googleMaps');
   //   // var len = document.getElementsByTagName('script[src=""https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap""]').length;
@@ -154,7 +180,7 @@ class DatePlan extends Component {
     //if there are no scripts that match, the load it
     // if (len === 0) {
       const script1 = document.createElement("script");
-      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZCefKR0I6QU-tmqcxQ43O53Y_zFGRy3s&libraries=places&callback=initMap";
+      script1.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBGYsWqSR5oPB0HPL_gjWW8DpwZSAXnf30&libraries=places&callback=initMap";
       script1.name = "googleMaps";
       script1.async = true;
       document.body.appendChild(script1);
@@ -186,15 +212,16 @@ class DatePlan extends Component {
           return (<TableRow key={item.id}>
             <TableRowColumn className="tableCellStyle">{item.name}</TableRowColumn>
             <TableRowColumn className="tableCellStyle">{item.description}</TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View Plan" primary={true} key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
-            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Save Plan" primary={true} key={item.id} onClick={this.saveDatePlanToUserReact.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="View Plan" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.getAllDatePlanItemsReact.bind(null, item.id)}/></TableRowColumn>
+            <TableRowColumn className="tableCellButtonStyle"><RaisedButton label="Save Plan" labelColor="#ffffff" backgroundColor="#2081C3" key={item.id} onClick={this.saveDatePlanToUserReact.bind(null, item.id)}/></TableRowColumn>
           </TableRow>)
         });
       }
       outputDatePlans = (
         <Table
           fixedHeader={true}
-          height="300px"
+          height="241px"
+          className="tableStyle"
         >
           <TableHeader
             displaySelectAll={this.state.showCheckBoxes}
@@ -244,7 +271,6 @@ class DatePlan extends Component {
 
     return (
       <div className="datePlanMain">
-        <div className="pageTitle">All Date Plans</div>
         <div className="datePlanMainSection">
           {/*<div className="datePlanDropDown">
             {dropDownPlanList}
@@ -257,7 +283,7 @@ class DatePlan extends Component {
         <div className="datePlanActivitiesSection">
           <div className="sectionTitle">Date Plan Activities</div>
           <div className="datePlanList">
-            <SingleDatePlan aDatePlan={this.state.aSingleDatePlan}/>
+            <SingleDatePlan aDatePlan={this.state.aSingleDatePlan} locatePlace={this.locateGeoCoor}/>
           </div>
         </div>
         <div className="datePlanMapSection">

@@ -11,7 +11,8 @@
 
 .planItemsCreateForm {
   position: relative;
-  background-color: lightblue;
+  border: 1px solid lightgray;
+  background-color: white;
   margin: 60px auto;
   padding: 20px;
   width: 80%;
@@ -20,9 +21,15 @@
 
 }
 
+.planCreateSection {
+  background-color: white;
+  margin-top: 20px;
+  padding: 20px;
+}
+
 .createDatePlanForm {
   width: 100%;
-  margin: 40px 0 0 0;
+  margin: 60px 0 0 0;
   /*background-color: lightblue;*/
   /*background-color: lightgoldenrodyellow;*/
 }
@@ -32,7 +39,7 @@
   padding: 12px 30px;
   margin: 8px 0 30px 20px;
   display: inline-block;
-  border: 1px solid #fff;
+  border: 1px solid lightgray;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 1em;
@@ -43,7 +50,6 @@
   width: 20%;
   background-color: #9e16ff;
   color: white;
-  padding: 14px 20px 14px 15px;
   margin: 8px 25px 8px 0;
   border: none;
   border-radius: 4px;
@@ -54,14 +60,15 @@
 .createDatePlanMapSection {
   /*position: relative;*/
   /*margin: 60px auto;*/
-
+  color: black;
   padding-top: 40px;
   width: 100%;
   min-width: 300px;
   max-width: 1000px;
-  min-height: 725px;
-  background-color: lightblue;
+  min-height: 675px;
+  background-color: white;
   overflow: auto;
+  
 }
 
 .createDatePlanNameLabel {
@@ -117,10 +124,37 @@
 }
 
 .userSelectedItems {
-  background-color: lightgray;
+  border: 1px solid lightgray;
+  width: 100%;
+  color: black;
+  padding: 15px 30px;
+  /*background: #2081C3;
+  background: -webkit-linear-gradient(left top, #2081C3, #aed8e5);
+  background: -o-linear-gradient(bottom right, #2081C3, #aed8e5);
+  background: -moz-linear-gradient(bottom right, #2081C3, #aed8e5);
+  background: linear-gradient(to bottom right, #2081C3, #aed8e5);*/
+}
+
+.userSelectedItemsBottomRow {
+  padding-top: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
 .removeItemFromPlan {
+  width: 60%;
+  background-color: #ff7575;
+  color: white;
+  margin: 8px 25px 8px 0;
+  border: none;
+  border-radius: 4px;
   float: right;
+  font-size: 1em;
+}
 
+.searchButtonCreate {
+  margin-top: 12px;
+}
+
+.createDatePlanMap {
+  border: 1px solid lightgray;
 }

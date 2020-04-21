@@ -58,6 +58,24 @@ module.exports = (knex) => {
       });
     });
 
+  // "Delete" a user_plan.
+    router.delete("/", (req, res) => {
+      knex("users_plans")
+      .where({
+        user_id: req.body.user_id,
+        plan_id: req.body.plan_id
+      })
+      .del()
+      .then((result) => {
+        res.sendStatus(200);
+      }, (reject) => {
+        console.log(reject);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    });
+
   //Get Users_Plans
   router.get("/user_plan/:id", (req, res) => {
     knex
@@ -118,6 +136,7 @@ module.exports = (knex) => {
 
     // Update a user.
     router.put("/update/", (req, res) => {
+      console.log("body: ", req.body);
       knex("users")
       .where({
         id: req.body.id
@@ -126,6 +145,7 @@ module.exports = (knex) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
+        image: req.body.image,
         username: req.body.username,
         password: req.body.password,
         dob: req.body.dob,
@@ -140,7 +160,7 @@ module.exports = (knex) => {
 
     // get a user through its ID. Returns JSON.
     router.get("/:id", (req, res) => {
-      console.log(req.params)
+      console.log("idwhat", req.params)
       knex
         .select("*")
         .where('id', "=", req.params.id)
@@ -150,6 +170,23 @@ module.exports = (knex) => {
         }, (rej) => {
           res.sendStatus(400)
         });
+    });
+
+    // get user messages with a matched user
+    router.get("/messages/", (req, res) => {
+      console.log("Please: ", req.body);
+      knex
+      .select("*")
+      .where("sender", "=", req.body.userId)
+      .andWhere("recipient", "=", req.body.matchId)
+      .orWhere("recipient", "=", req.body.userId)
+      .andWhere("sender", "=", req.body.matchId)
+      .from("messages")
+      .then( (results) => {
+        res.json(results);
+      }, (rej) => {
+        res.sendStatus(400)
+      });
     });
 
   return router;

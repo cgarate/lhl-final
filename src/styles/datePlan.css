@@ -13,13 +13,19 @@
   position: relative;
   /*top: 150px;*/
   margin: 60px auto;
-
+  border: 1px solid lightgray;
   padding: 20px;
   width: 80%;
   min-width: 300px;
   max-width: 1000px;
   min-height: 300px;
-  background-color: lightblue;
+  color: white;
+  background-color: #BBDEF0;
+  background: #2081C3; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #2081C3, #aed8e5); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #2081C3, #aed8e5); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #2081C3, #aed8e5); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #2081C3, #aed8e5); /* Standard syntax */
 }
 
 .datePlanDropDown {
@@ -29,15 +35,17 @@
 }
 
 .datePlanList {
+  border: 1px solid lightgray;
   width: 100%;
   height: 300px;
   margin: 20px 0 0 0;
-  background-color: lightgoldenrodyellow;
+  background-color: #fff;
   overflow: scroll;
 }
 
 .tableCellStyle {
   vertical-align: middle;
+  font-size: 1em !important;
 }
 
 .tableCellButtonStyle {
@@ -48,34 +56,51 @@
 .datePlanMapSection {
   position: relative;
   margin: 60px auto;
-
+  color: white;
   padding: 20px;
   width: 80%;
   min-width: 300px;
   max-width: 1000px;
   min-height: 300px;
-  background-color: lightblue;
+  background-color: white;
+  border: 1px solid lightgray;
+  background: #2081C3; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #2081C3, #aed8e5); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #2081C3, #aed8e5); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #2081C3, #aed8e5); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #2081C3, #aed8e5); /* Standard syntax */
 }
 
 .datePlanMap {
   width: 100%;
   height: 500px;
   margin: 20px 0 0 0;
-  background-color: #4286f4;
+  /*background-color: #4286f4;*/
+  border-top: 1px solid lightgray;
 }
 
 .datePlanActivitiesSection {
   position: relative;
   margin: 60px auto;
-
+  color: white;
   padding: 20px;
   width: 80%;
   min-width: 300px;
   max-width: 1000px;
   min-height: 300px;
-  background-color: lightblue;
+  background-color: white;
+  border: 1px solid lightgray;
+  background: #2081C3; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #2081C3, #aed8e5); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #2081C3, #aed8e5); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #2081C3, #aed8e5); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #2081C3, #aed8e5); /* Standard syntax */
 }
 
 .options-box-none {
   display: none;
+}
+
+.tableButtons {
+  background-color: #2081C3 !important;
 }
